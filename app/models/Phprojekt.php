@@ -22,7 +22,7 @@ class Phprojekt {
 			return 'Sorry you are not allowed to enter.';
 		}
 
-		$crawler = $this->crawler->request('GET', 'https://phprojekt.mayflower.de');
+		$crawler = $this->crawler->request('GET', $this->baseUrl);
 		$xpath = '//*[@id="global-main"]/div[2]/form/fieldset/input[3]';
 		$node = $crawler->filterXPath($xpath);
 		$form = $node->form();
@@ -183,10 +183,10 @@ class Phprojekt {
 		$table = new Table(new ConsoleOutput());
 		$table->setHeaders(['Project', 'Bookings']);
 
-		foreach($projects as $project) {
+		foreach($projects as $index => $project) {
 			$table->addRow([
-				$project['name'],
-				implode(', ', $project['bookings'])
+				sprintf("%s (%s)", $project['name'], $index),
+				implode("\n", $project['bookings'])
 			]);
 			$table->addRow(new TableSeparator());
 		}

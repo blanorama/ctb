@@ -50,11 +50,12 @@ class AddProjectTimeCommand extends BaseCommand {
 		try {
 			$this->info('[Action] Book project time');
 			$phprojekt->bookProjectTime($this, $project, $hours, $minutes, $description);
-			$this->call('p:projects');
+			$this->call('p:list');
 			$this->info('[Action] Done');
 
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] Something failed here...');
+			$this->comment($e->getMessage());
 		}
 	}
 
