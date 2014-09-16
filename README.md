@@ -85,7 +85,7 @@ php artisan t:stop
 
 #Features coming someday
 
-* List time/rpoject bookings of this month
+* List time/project bookings of this month
 * List time/project bookings of another day
 * Add time/project bookings to another day
 * Remove time/project bookings
