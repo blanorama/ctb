@@ -11,6 +11,7 @@ NOTE: This may not work with your PHProjekt version.
 
 2. Add .env.php file to root directory with the following content.
 
+```php
 <?php
 
 return [
@@ -18,32 +19,43 @@ return [
 	'PHPROJEKT_USERNAME' => 'mmustermann',
 	'PHPROJEKT_PASSWORD' => 'passwort'
 ];
+```
 
 3. That using it :-)
 
 # Features available
 
 ## List today time bookings
+```php
 php artisan t:list
+```
 
 ## List todays favorite project bookings
+```php
 php artisan p:list
+```
 
 ## Book todays working time
+```php
 php artisan t:t <start 0800> <end 1600>
+```
 
 ## Book todays project working time
+```php
 php artisan p:p <projectID> <time 0100> <description Meeting>
+```
 
 *NOTE:* The projectID can be seen in project list (php artisan p:list)
 
 ## Start working timer
-
+```php
 php artisan t:start
+```
 
 ## Stop working timer
-
+```php
 php artisan t:stop
+```
 
 #Features coming someday
 
