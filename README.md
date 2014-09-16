@@ -30,6 +30,7 @@ return [
 php artisan t:list
 ```
 
+```php
 +-------+---------+---------+
 | Start | End     | Sum     |
 +-------+---------+---------+
@@ -38,12 +39,14 @@ php artisan t:list
 +-------+---------+---------+
 |       | Overall | 8 h 0 m |
 +-------+---------+---------+
+```
 
 ## List todays favorite project bookings
 ```php
 php artisan p:list
 ```
 
+```php
 +---------------------+----------------------------+
 | Project             | Bookings                   |
 +---------------------+----------------------------+
@@ -56,6 +59,7 @@ php artisan p:list
 |                     | Noch zu vergeben: 9 h 0 m  |
 | Overall             | 0 h 0 m                    |
 +---------------------+----------------------------+
+```
 
 ## Book todays working time
 ```php
