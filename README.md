@@ -21,7 +21,7 @@ return [
 ];
 ```
 
-3. That using it :-)
+3. Start using ctb by using the listed features.
 
 # Features available
 
