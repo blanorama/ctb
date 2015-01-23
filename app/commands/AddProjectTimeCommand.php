@@ -3,6 +3,7 @@
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class AddProjectTimeCommand extends BaseCommand {
 
@@ -11,7 +12,11 @@ class AddProjectTimeCommand extends BaseCommand {
 
 	public function fire()
 	{
-		$phprojekt = new Phprojekt();
+		$phprojekt = new Phprojekt(
+			getenv('PHPROJEKT_URL'),
+			getenv('PHPROJEKT_USERNAME'),
+			getenv('PHPROJEKT_PASSWORD')
+		);
 
 		$this->doLogin($phprojekt);
 		$this->doAddProjectTime($phprojekt);
@@ -49,7 +54,7 @@ class AddProjectTimeCommand extends BaseCommand {
 
 		try {
 			$this->info('[Action] Book project time');
-			$phprojekt->bookProjectTime($this, $project, $hours, $minutes, $description);
+			$phprojekt->bookProjectTime($project, $hours, $minutes, $description);
 			$this->call('p:list');
 			$this->info('[Action] Done');
 
