@@ -1,5 +1,7 @@
 <?php
 
+use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
+
 class StopWorkingtimeCommand extends BaseCommand {
 
 	protected $name = 't:stop';
@@ -7,7 +9,11 @@ class StopWorkingtimeCommand extends BaseCommand {
 
 	public function fire()
 	{
-		$phprojekt = new Phprojekt();
+		$phprojekt = new Phprojekt(
+			getenv('PHPROJEKT_URL'),
+			getenv('PHPROJEKT_USERNAME'),
+			getenv('PHPROJEKT_PASSWORD')
+		);
 
 		$this->doLogin($phprojekt);
 		$this->doStopWorkingtime($phprojekt);

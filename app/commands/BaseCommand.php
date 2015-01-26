@@ -18,13 +18,10 @@ class BaseCommand extends Command {
 	{
 //		$this->comment('[Action] Try to login');
 
-		$username = getenv('PHPROJEKT_USERNAME');
-		$password = getenv('PHPROJEKT_PASSWORD');
-
 		try {
-			$error = $phprojekt->login($username, $password);
+			$success = $phprojekt->login();
 
-			if ($error === 'Sorry you are not allowed to enter.') {
+			if (!$success) {
 				exit($this->comment('[Response] Login Failed!'));
 			}
 

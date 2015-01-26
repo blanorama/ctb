@@ -3,6 +3,7 @@
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class BookTimeCommand extends BaseCommand {
 
@@ -11,7 +12,11 @@ class BookTimeCommand extends BaseCommand {
 
 	public function fire()
 	{
-		$phprojekt = new Phprojekt();
+		$phprojekt = new Phprojekt(
+			getenv('PHPROJEKT_URL'),
+			getenv('PHPROJEKT_USERNAME'),
+			getenv('PHPROJEKT_PASSWORD')
+		);
 
 		$this->doLogin($phprojekt);
 		$this->doBookTime($phprojekt);
