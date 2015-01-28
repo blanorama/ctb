@@ -54,7 +54,15 @@ class AddProjectTimeCommand extends BaseCommand {
 
 		try {
 			$this->info('[Action] Book project time');
-			$phprojekt->bookProjectTime($project, $hours, $minutes, $description);
+
+			$timeCardApi = $phprojekt->getTimecardApi();
+			$timeCardApi->logProjectHours(
+				new \DateTime(),
+				$project,
+				$hours + $minutes / 60,
+				$description
+			);
+
 			$this->call('p:list');
 			$this->info('[Action] Done');
 

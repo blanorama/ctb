@@ -27,27 +27,31 @@ class ProjectsCommand extends BaseCommand {
 	 */
 	private function listProjects($phprojekt)
 	{
-		list($projects, $stillToBook, $overallBookings) = $phprojekt->listProjects();
+		$timeCardApi = $phprojekt->getTimecardApi();
+		$projectLog = $timeCardApi->getProjectBookings(new \DateTime());
 
 		$table = new Table(new ConsoleOutput());
-		$table->setHeaders(['Project', 'Bookings']);
+		$table->setHeaders(['Project', 'Description', 'Hours']);
 
-		foreach($projects as $index => $project) {
+		foreach($projectLog as $log) {
 			$table->addRow([
-					sprintf("%s (%s)", $project['name'], $index),
-					implode("\n", $project['bookings'])
-				]);
+				sprintf("%s (%s)", $log->getName(), $log->getProjectIndex()),
+				$log->getDescription(),
+				$log->getHours()
+			]);
 			$table->addRow(new TableSeparator());
 		}
 
 		$table->addRow([
+				'Noch zu buchen',
 				'',
-				$stillToBook
+				$projectLog->getRemainingWorkLog()
 			]);
 
 		$table->addRow([
 				'Overall',
-				$overallBookings
+				'',
+				$projectLog->getBookedHours()
 			]);
 
 		echo $table->render();

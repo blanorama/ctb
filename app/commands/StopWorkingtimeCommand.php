@@ -25,8 +25,9 @@ class StopWorkingtimeCommand extends BaseCommand {
 	protected function doStopWorkingtime($phprojekt)
 	{
 		try {
+
 			$this->info('[Action] Stop working time');
-			$phprojekt->stopWorkingtime();
+			$phprojekt->getTimecardApi()->workEnd();
 			$this->info('[Action] Done');
 
 		} catch(InvalidArgumentException $e) {
