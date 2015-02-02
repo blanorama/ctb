@@ -29,9 +29,6 @@ class ListOverviewCommand extends BaseCommand {
 
     }
 
-    /**
-     * @param Phprojekt $phprojekt
-     */
     protected function doListOverview()
     {
         try {
