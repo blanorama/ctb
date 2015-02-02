@@ -83,6 +83,18 @@ php artisan time:start
 php artisan time:stop
 ```
 
+## Vacation and overtime overview
+```php
+php artisan time:overview
+```
+
+```php
++--------------------+-----------+
+| Overtime           | 08 h 00 m |
+| Vacation days left | 20.00     |
++--------------------+-----------+
+```
+
 #Features coming someday
 
 * List time/project bookings of this month
