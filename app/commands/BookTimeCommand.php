@@ -49,7 +49,14 @@ class BookTimeCommand extends BaseCommand {
 
 		try {
 			$this->info('[Action] Book working time');
-			$phprojekt->bookTime($start, $end);
+
+			$timeCardApi = $phprojekt->getTimecardApi();
+			$timeCardApi->logWorkingHours(
+				new \DateTime(),
+				$start,
+				$end
+			);
+
 			$this->info('[Action] Done');
 
 		} catch(InvalidArgumentException $e) {

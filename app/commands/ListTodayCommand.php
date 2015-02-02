@@ -29,13 +29,23 @@ class ListTodayCommand extends BaseCommand {
 	{
 		try {
 
-			list($workingTimeList, $overall) = $phprojekt->listWorkingtimeToday();
+			$timeCardApi = $phprojekt->getTimecardApi();
+			$workLog = $timeCardApi->getWorkingHours(new \DateTime());
 
 			$table = new Table(new ConsoleOutput());
 			$table->setHeaders(['Start', 'End', 'Sum']);
 
-			foreach ($workingTimeList as $row) {
-				$table->addRow($row);
+			foreach ($workLog as $row) {
+
+				$start = $row->getStart();
+				$end   = $row->getEnd();
+				$diff  = $end->diff($start);
+
+				$table->addRow([
+					$start->format('H:i'),
+					$end->format('H:i'),
+					$diff->format('%h h %i m')
+				]);
 			}
 
 			$table->addRow(new TableSeparator());
@@ -43,7 +53,7 @@ class ListTodayCommand extends BaseCommand {
 			$table->addRow([
 				'',
 				'Overall',
-				$overall
+				$workLog->getOverallTime()
 			]);
 
 			exit($table->render());

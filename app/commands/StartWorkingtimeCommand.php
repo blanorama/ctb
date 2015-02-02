@@ -22,13 +22,14 @@ class StartWorkingtimeCommand extends BaseCommand {
 
 
 	/**
-	 * @param $phprojekt
+	 * @param Phprojekt $phprojekt
 	 */
 	protected function doStartWorkingtime($phprojekt)
 	{
 		try {
+
 			$this->info('[Action] Start working time');
-			$phprojekt->startWorkingtime();
+			$phprojekt->getTimecardApi()->workStart();
 			$this->info('[Action] Done');
 
 		} catch(InvalidArgumentException $e) {
