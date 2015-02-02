@@ -15,6 +15,11 @@ class CtbPhprojektRemoteApi extends PhprojektRemoteApi
         return $this;
     }
 
+    public function getProjectsApi()
+    {
+        return $this;
+    }
+
     /**
      * @TODO: Use API when implemented getPtimecontrolApi
      *
@@ -48,5 +53,25 @@ class CtbPhprojektRemoteApi extends PhprojektRemoteApi
         $xpath = '//*[@id="vacation_summary"]/div[2]/table/tr[3]/td[9]';
         $filteredContent = $pTimeControl->filterXPath($xpath);
         return $filteredContent->html();
+    }
+
+    /**
+     * Get favorites by ProjectApi
+     * @TODO: Remove when is available in project api
+     *
+     * @return array
+     */
+    public function getFavorites()
+    {
+        $pTimeControl = $this->httpClient->request(
+            'GET',
+            $this->phprojektUrl . '/timecard/timecard.php?submode=favorites'
+        );
+
+        $xpath = '//*[@id="left_container"]/div/div/form[2]/fieldset/table/tbody/*/td[1]';
+        $filteredContent = $pTimeControl->filterXPath($xpath);
+        $projectNodes = $filteredContent->extract(['_text']);
+
+        return array_filter(array_map('trim', $projectNodes));
     }
 }

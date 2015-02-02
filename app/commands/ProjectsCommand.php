@@ -3,7 +3,8 @@
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
+//use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
+use CtbPhprojektRemoteApi as Phprojekt;
 
 class ProjectsCommand extends BaseCommand {
 
@@ -27,6 +28,11 @@ class ProjectsCommand extends BaseCommand {
 	 */
 	private function listProjects($phprojekt)
 	{
+        $projectApi = $phprojekt->getProjectsApi();
+        $projectFavorites = $projectApi->getFavorites();
+
+        $this->comment('Projects: ' . implode(', ', $projectFavorites));
+
 		$timeCardApi = $phprojekt->getTimecardApi();
 		$projectLog = $timeCardApi->getProjectBookings(new \DateTime());
 

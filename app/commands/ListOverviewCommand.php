@@ -1,5 +1,6 @@
 <?php
 
+use PhprojektRemoteApi\Tools\Convert;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
 //use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
@@ -36,8 +37,8 @@ class ListOverviewCommand extends BaseCommand {
             $vacationDays = $this->phprojekt->getPtimecontrolApi()->getVacationDays();
 
             $table = new Table(new ConsoleOutput());
-            $table->addRow(['Overtime', $overtime]);
-            $table->addRow(['Vacation days left', $vacationDays ]);
+            $table->addRow(['Overtime hours', Convert::text2hours($overtime)]);
+            $table->addRow(['Vacation days', $vacationDays ]);
 
             return $table->render();
 
