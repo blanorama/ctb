@@ -6,3 +6,5 @@ Artisan::add(new BookTimeCommand());
 Artisan::add(new ListTodayCommand());
 Artisan::add(new AddProjectTimeCommand());
 Artisan::add(new ProjectsCommand());
+Artisan::add(new ListOverviewCommand());
+
