@@ -35,10 +35,9 @@ class ListOverviewCommand extends BaseCommand {
     protected function doListOverview()
     {
         try {
-            $overtime = $this->getOvertime();
-            $vacationDays = $this->getVacationDaysLeft();
+            $overtime = $this->phprojekt->getPtimecontrolApi()->getOvertimeOverall();
+            $vacationDays = $this->phprojekt->getPtimecontrolApi()->getVacationDays();
 
-            // @TODO: Build table with information above
             $table = new Table(new ConsoleOutput());
             $table->addRow(['Overtime', $overtime]);
             $table->addRow(['Vacation days left', $vacationDays ]);
@@ -48,31 +47,5 @@ class ListOverviewCommand extends BaseCommand {
         } catch(InvalidArgumentException $e) {
             $this->error('[Response] No information retrieved.');
         }
-    }
-
-    protected function getOvertime()
-    {
-        // @TODO: Use API when implemented getPtimecontrolApi
-        $pTimeControl = $this->phprojekt->getClient()->request(
-            'GET',
-            $this->phprojekt->getProjectUrl() . '/ptimecontrol/ptc.php'
-        );
-
-        $xpath = '//*[@id="global-content"]/table/tr/td[4]';
-        $filteredContent = $pTimeControl->filterXPath($xpath);
-        return $filteredContent->html();
-    }
-
-    protected function getVacationDaysLeft()
-    {
-        // @TODO: Use API when implemented getPtimecontrolApi
-        $pTimeControl = $this->phprojekt->getClient()->request(
-            'GET',
-            $this->phprojekt->getProjectUrl() . '/vacation/index.php'
-        );
-
-        $xpath = '//*[@id="vacation_summary"]/div[2]/table/tr[3]/td[9]';
-        $filteredContent = $pTimeControl->filterXPath($xpath);
-        return $filteredContent->html();
     }
 }
