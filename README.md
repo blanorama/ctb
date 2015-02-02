@@ -27,7 +27,7 @@ return [
 
 ## List today time bookings
 ```php
-php artisan t:list
+php artisan time:list
 ```
 
 ```php
@@ -43,7 +43,7 @@ php artisan t:list
 
 ## List todays favorite project bookings
 ```php
-php artisan p:list
+php artisan project:list
 ```
 
 ```php
@@ -63,24 +63,24 @@ php artisan p:list
 
 ## Book todays working time
 ```php
-php artisan t:t <start 0800> <end 1600>
+php artisan time:book <start 0800> <end 1600>
 ```
 
 ## Book todays project working time
 ```php
-php artisan p:p <projectID> <time 0100> <description Meeting>
+php artisan project:book <projectID> <time 0100> <description Meeting>
 ```
 
 *NOTE:* The projectID can be seen in project list (php artisan p:list)
 
 ## Start working timer
 ```php
-php artisan t:start
+php artisan time:start
 ```
 
 ## Stop working timer
 ```php
-php artisan t:stop
+php artisan time:stop
 ```
 
 #Features coming someday

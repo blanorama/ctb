@@ -4,7 +4,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class StartWorkingtimeCommand extends BaseCommand {
 
-	protected $name = 't:start';
+	protected $name = 'time:start';
 	protected $description = 'Start workingtime.';
 
 	public function fire()

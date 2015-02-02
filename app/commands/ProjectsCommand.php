@@ -7,7 +7,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class ProjectsCommand extends BaseCommand {
 
-	protected $name = 'p:list';
+	protected $name = 'project:list';
 	protected $description = 'List favorite projects.';
 
 	public function fire()

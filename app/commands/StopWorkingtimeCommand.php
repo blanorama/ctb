@@ -4,7 +4,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class StopWorkingtimeCommand extends BaseCommand {
 
-	protected $name = 't:stop';
+	protected $name = 'time:stop';
 	protected $description = 'Stop workingtime.';
 
 	public function fire()

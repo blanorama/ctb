@@ -7,7 +7,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class ListTodayCommand extends BaseCommand {
 
-	protected $name = 't:list';
+	protected $name = 'time:list';
 	protected $description = 'List booked working time today.';
 
 	public function fire()

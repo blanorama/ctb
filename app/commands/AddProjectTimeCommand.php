@@ -7,7 +7,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class AddProjectTimeCommand extends BaseCommand {
 
-	protected $name = 'p:p';
+	protected $name = 'project:book';
 	protected $description = 'Book project time.';
 
 	public function fire()
