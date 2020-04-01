@@ -39,8 +39,8 @@ class BookTimeCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$start = trim($this->argument('start'));
-		$end = trim($this->argument('end'));
+		$start = $this->argument('start');
+		$end = $this->argument('end');
 
 		if (strlen($start) != 4 || strlen($end) != 4) {
             $this->error('[Response] Wrong format... Please use 0100 as example.');

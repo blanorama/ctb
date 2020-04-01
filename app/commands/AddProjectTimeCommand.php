@@ -40,9 +40,9 @@ class AddProjectTimeCommand extends BaseCommand {
      */
 	protected function doAddProjectTime($phprojekt)
 	{
-		$project = trim($this->argument('project'));
-		$time = trim($this->argument('time'));
-		$description = trim($this->argument('description'));
+		$project = $this->argument('project');
+		$time = $this->argument('time');
+		$description = $this->argument('description');
 
 		if (strlen($time) != 4) {
             $this->error('[Response] Wrong format... Please use 0100 as example.');
