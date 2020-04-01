@@ -3,7 +3,6 @@
 use PhprojektRemoteApi\Tools\Convert;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
-//use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 use CtbPhprojektRemoteApi as Phprojekt;
 
 class ListOverviewCommand extends BaseCommand {
