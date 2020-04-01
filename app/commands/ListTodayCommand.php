@@ -32,36 +32,42 @@ class ListTodayCommand extends BaseCommand {
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$workLog = $timeCardApi->getWorkingHours(new DateTime());
-
-			$table = new Table(new ConsoleOutput());
-			$table->setHeaders(['Start', 'End', 'Sum']);
-
-			foreach ($workLog as $row) {
-
-				$start = $row->getStart();
-				$end   = $row->getEnd();
-				$diff  = $end->diff($start);
-
-				$table->addRow([
-					$start->format('H:i'),
-					$end->format('H:i'),
-					$diff->format('%h h %i m')
-				]);
-			}
-
-			$table->addRow(new TableSeparator());
-
-			$table->addRow([
-				'',
-				'Overall',
-				$workLog->getOverallTime()
-			]);
-
-            $table->render();
+			$this->renderWorklogTable($workLog);
 			exit();
 
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] No bookings today...');
 		}
 	}
+
+    /**
+     * @param $workLog
+     */
+	static function renderWorklogTable($workLog) {
+        $table = new Table(new ConsoleOutput());
+        $table->setHeaders(['Start', 'End', 'Sum']);
+
+        foreach ($workLog as $row) {
+
+            $start = $row->getStart();
+            $end   = $row->getEnd();
+            $diff  = $end->diff($start);
+
+            $table->addRow([
+                $start->format('H:i'),
+                $end->format('H:i'),
+                $diff->format('%h h %i m')
+            ]);
+        }
+
+        $table->addRow(new TableSeparator());
+
+        $table->addRow([
+            '',
+            'Overall',
+            $workLog->getOverallTime()
+        ]);
+
+        $table->render();
+    }
 }
