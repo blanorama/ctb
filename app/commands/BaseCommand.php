@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Console\Command;
+use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class BaseCommand extends Command {
 
