@@ -64,7 +64,7 @@ class BookDateTimeCommand extends BaseCommand {
 			$this->error('[Response] Something failed here...');
 		}
 
-		$this->call('t:list');
+		$this->call('d:list', ['date' => $date]);
 	}
 
 }
