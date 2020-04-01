@@ -8,7 +8,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 class BookDateTimeCommand extends BaseCommand {
 
 	protected $name = 'date:time:book';
-	protected $description = 'Book workingtime.';
+	protected $description = 'Book workingtime for a specific date';
 
 	public function fire()
 	{
@@ -46,7 +46,8 @@ class BookDateTimeCommand extends BaseCommand {
 		$end = trim($this->argument('end'));
 
 		if (strlen($date) != 10 || strlen($start) != 4 || strlen($end) != 4) {
-			exit($this->error('[Response] Wrong format... Please use 0100 as example.'));
+			$this->error('[Response] Wrong format... Please use 1970-01-01 0100 0200 as example.');
+			exit();
 		}
 
 		try {
