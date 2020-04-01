@@ -2,13 +2,14 @@
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Input\InputArgument;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
-class ListTodayCommand extends BaseCommand {
+class ListTimeCommand extends BaseCommand {
 
 	protected $name = 'time:list';
-	protected $description = 'List booked working time today.';
+	protected $description = 'List booked working time for a specific date.';
 
 	public function fire()
 	{
@@ -23,16 +24,30 @@ class ListTodayCommand extends BaseCommand {
 	}
 
     /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to look up time for'],
+        ];
+    }
+
+    /**
      * @param Phprojekt $phprojekt
      * @throws Exception
      */
 	protected function doListWorkingtime($phprojekt)
 	{
-		try {
+        $date = handleDateArgument($this, $this->argument('date'));
+
+        try {
 
 			$timeCardApi = $phprojekt->getTimecardApi();
-			$workLog = $timeCardApi->getWorkingHours(new DateTime());
-			$this->renderWorklogTable($workLog);
+			$workLog = $timeCardApi->getWorkingHours($date);
+            $this->renderWorklogTable($workLog);
 			exit();
 
 		} catch(InvalidArgumentException $e) {
@@ -43,7 +58,7 @@ class ListTodayCommand extends BaseCommand {
     /**
      * @param $workLog
      */
-	static function renderWorklogTable($workLog) {
+    protected function renderWorklogTable($workLog) {
         $table = new Table(new ConsoleOutput());
         $table->setHeaders(['Start', 'End', 'Sum']);
 
@@ -51,13 +66,21 @@ class ListTodayCommand extends BaseCommand {
 
             $start = $row->getStart();
             $end   = $row->getEnd();
-            $diff  = $end->diff($start);
 
-            $table->addRow([
-                $start->format('H:i'),
-                $end->format('H:i'),
-                $diff->format('%h h %i m')
-            ]);
+            if($end != null) {
+                $diff  = $end->diff($start);
+
+                $table->addRow([
+                    $start->format('H:i'),
+                    $end->format('H:i'),
+                    $diff->format('%h h %i m')
+                ]);
+            } else {
+                $table->addRow([
+                    $start->format('H:i')
+                ]);
+            }
+
         }
 
         $table->addRow(new TableSeparator());
