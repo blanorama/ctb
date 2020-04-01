@@ -12,7 +12,7 @@
     "require": {
         "laravel/framework": "4.2.*",
         "way/generators": "~2.0",
-        "mayflower/PhprojektRemoteApi": "0.1.0"
+        "mayflower/PhprojektRemoteApi": "0.2.2"
     },
     "autoload": {
         "classmap": [
