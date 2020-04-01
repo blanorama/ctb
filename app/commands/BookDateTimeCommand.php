@@ -55,7 +55,7 @@ class BookDateTimeCommand extends BaseCommand {
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logWorkingHours(
-				new DateTime(),
+                DateTime::createFromFormat('Y-m-d', $date),
 				$start,
 				$end
 			);
