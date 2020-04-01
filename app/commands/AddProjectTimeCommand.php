@@ -1,8 +1,6 @@
 <?php
 
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class AddProjectTimeCommand extends BaseCommand {
@@ -36,9 +34,10 @@ class AddProjectTimeCommand extends BaseCommand {
 		];
 	}
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	protected function doAddProjectTime($phprojekt)
 	{
 		$project = trim($this->argument('project'));
@@ -46,7 +45,8 @@ class AddProjectTimeCommand extends BaseCommand {
 		$description = trim($this->argument('description'));
 
 		if (strlen($time) != 4) {
-			exit($this->error('[Response] Wrong format... Please use 0100 as example.'));
+            $this->error('[Response] Wrong format... Please use 0100 as example.');
+			exit();
 		}
 
 		$hours = $time[0] . $time[1];
@@ -57,7 +57,7 @@ class AddProjectTimeCommand extends BaseCommand {
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logProjectHours(
-				new \DateTime(),
+				new DateTime(),
 				$project,
 				$hours + $minutes / 60,
 				$description

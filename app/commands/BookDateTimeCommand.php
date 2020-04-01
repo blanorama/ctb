@@ -1,8 +1,6 @@
 <?php
 
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class BookDateTimeCommand extends BaseCommand {

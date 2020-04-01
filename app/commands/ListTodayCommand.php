@@ -22,15 +22,16 @@ class ListTodayCommand extends BaseCommand {
 		$this->doListWorkingtime($phprojekt);
 	}
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	protected function doListWorkingtime($phprojekt)
 	{
 		try {
 
 			$timeCardApi = $phprojekt->getTimecardApi();
-			$workLog = $timeCardApi->getWorkingHours(new \DateTime());
+			$workLog = $timeCardApi->getWorkingHours(new DateTime());
 
 			$table = new Table(new ConsoleOutput());
 			$table->setHeaders(['Start', 'End', 'Sum']);
@@ -56,7 +57,8 @@ class ListTodayCommand extends BaseCommand {
 				$workLog->getOverallTime()
 			]);
 
-			exit($table->render());
+            $table->render();
+			exit();
 
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] No bookings today...');

@@ -40,7 +40,8 @@ class ListOverviewCommand extends BaseCommand {
             $table->addRow(['Overtime hours', Convert::text2hours($overtime)]);
             $table->addRow(['Vacation days', $vacationDays ]);
 
-            return $table->render();
+            $table->render();
+            return;
 
         } catch(InvalidArgumentException $e) {
             $this->error('[Response] No information retrieved.');

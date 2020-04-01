@@ -9,23 +9,18 @@ class BaseCommand extends Command {
 	 */
 	protected $crawler = null;
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 * @param $username
-	 * @param $password
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     */
 	protected function doLogin($phprojekt)
 	{
-//		$this->comment('[Action] Try to login');
-
 		try {
 			$success = $phprojekt->login();
 
 			if (!$success) {
-				exit($this->comment('[Response] Login Failed!'));
+				$this->comment('[Response] Login Failed!');
+				exit();
 			}
-
-//			$this->comment('[Response] Login successful');
 		} catch(InvalidArgumentException $e) {
 		}
 	}

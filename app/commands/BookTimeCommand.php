@@ -1,8 +1,6 @@
 <?php
 
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class BookTimeCommand extends BaseCommand {
@@ -35,16 +33,18 @@ class BookTimeCommand extends BaseCommand {
 		];
 	}
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	protected function doBookTime($phprojekt)
 	{
 		$start = trim($this->argument('start'));
 		$end = trim($this->argument('end'));
 
 		if (strlen($start) != 4 || strlen($end) != 4) {
-			exit($this->error('[Response] Wrong format... Please use 0100 as example.'));
+            $this->error('[Response] Wrong format... Please use 0100 as example.');
+			exit();
 		}
 
 		try {
@@ -52,7 +52,7 @@ class BookTimeCommand extends BaseCommand {
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logWorkingHours(
-				new \DateTime(),
+				new DateTime(),
 				$start,
 				$end
 			);

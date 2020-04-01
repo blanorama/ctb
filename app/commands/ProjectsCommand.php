@@ -23,9 +23,10 @@ class ProjectsCommand extends BaseCommand {
 		$this->listProjects($phprojekt);
 	}
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	private function listProjects($phprojekt)
 	{
         $projectApi = $phprojekt->getProjectsApi();
@@ -34,7 +35,7 @@ class ProjectsCommand extends BaseCommand {
         $this->comment('Projects: ' . implode(', ', $projectFavorites));
 
 		$timeCardApi = $phprojekt->getTimecardApi();
-		$projectLog = $timeCardApi->getProjectBookings(new \DateTime());
+		$projectLog = $timeCardApi->getProjectBookings(new DateTime());
 
 		$table = new Table(new ConsoleOutput());
 		$table->setHeaders(['Project', 'Description', 'Hours']);
@@ -60,7 +61,7 @@ class ProjectsCommand extends BaseCommand {
 				$projectLog->getBookedHours()
 			]);
 
-		echo $table->render();
+		$table->render();
 	}
 
 }
