@@ -3,10 +3,10 @@
 use Symfony\Component\Console\Input\InputArgument;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
-class BookDateTimeCommand extends BaseCommand {
+class BookStartTimeCommand extends BaseCommand {
 
-	protected $name = 'date:time:book';
-	protected $description = 'Book working time for a specific date';
+	protected $name = 'time:start:book';
+	protected $description = 'Book start of working time, optionally for a specific date';
 
 	public function fire()
 	{
@@ -28,23 +28,23 @@ class BookDateTimeCommand extends BaseCommand {
 	protected function getArguments()
 	{
 		return [
-			['date', InputArgument::REQUIRED, 'Date YYYY-MM-DD to book time for'],
 			['start', InputArgument::REQUIRED, 'Started working at HHMM'],
-			['end', InputArgument::REQUIRED, 'Stopped working at HHMM'],
+			['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to book time for'],
 		];
 	}
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	protected function doBookTime($phprojekt)
 	{
-		$date = $this->argument('date');
-		$start = $this->argument('start');
-		$end = $this->argument('end');
+		$start = handleTimeArgument($this->argument('start'));
+		$dateString = $this->argument('date');
+        $date = handleDateArgument($this, $dateString);
 
-		if (strlen($date) != 10 || strlen($start) != 4 || strlen($end) != 4) {
-			$this->error('[Response] Wrong format... Please use 1970-01-01 0100 0200 as example.');
+		if (strlen($start) != 4) {
+			$this->error('[Response] Wrong format... Please use 0100 [1970-01-01] as example.');
 			exit();
 		}
 
@@ -52,10 +52,9 @@ class BookDateTimeCommand extends BaseCommand {
 			$this->info('[Action] Book working time');
 
 			$timeCardApi = $phprojekt->getTimecardApi();
-			$timeCardApi->logWorkingHours(
-                DateTime::createFromFormat('Y-m-d', $date),
-				$start,
-				$end
+			$timeCardApi->logStartWorkingTime(
+                $date,
+				$start
 			);
 
 			$this->info('[Action] Done');
@@ -64,7 +63,6 @@ class BookDateTimeCommand extends BaseCommand {
 			$this->error('[Response] Something failed here...');
 		}
 
-		$this->call('d:list', ['date' => $date]);
+		$this->call('t:list', ['date' => $dateString]);
 	}
-
 }

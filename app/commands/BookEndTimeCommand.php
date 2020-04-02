@@ -3,10 +3,10 @@
 use Symfony\Component\Console\Input\InputArgument;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
-class BookTimeCommand extends BaseCommand {
+class BookEndTimeCommand extends BaseCommand {
 
-	protected $name = 'time:book';
-	protected $description = 'Book working time, optionally for a specific date';
+	protected $name = 'time:end:book';
+	protected $description = 'Book end of working time, optionally for a specific date';
 
 	public function fire()
 	{
@@ -28,8 +28,7 @@ class BookTimeCommand extends BaseCommand {
 	protected function getArguments()
 	{
 		return [
-			['start', InputArgument::REQUIRED, 'Started working at HHMM'],
-			['end', InputArgument::REQUIRED, 'Stopped working at HHMM'],
+			['end', InputArgument::REQUIRED, 'Ended working at HHMM'],
 			['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to book time for'],
 		];
 	}
@@ -40,13 +39,12 @@ class BookTimeCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$start = handleTimeArgument($this->argument('start'));
 		$end = handleTimeArgument($this->argument('end'));
-	    $dateString = $this->argument('date');
-		$date = handleDateArgument($this, $dateString);
+		$dateString = $this->argument('date');
+        $date = handleDateArgument($this, $dateString);
 
-		if (strlen($start) != 4 || strlen($end) != 4) {
-			$this->error('[Response] Wrong format... Please use 0100 0200 [1970-01-01] as example.');
+		if (strlen($end) != 4) {
+			$this->error('[Response] Wrong format... Please use 0100 [1970-01-01] as example.');
 			exit();
 		}
 
@@ -54,9 +52,8 @@ class BookTimeCommand extends BaseCommand {
 			$this->info('[Action] Book working time');
 
 			$timeCardApi = $phprojekt->getTimecardApi();
-			$timeCardApi->logWorkingHours(
+			$timeCardApi->logEndWorkingTime(
                 $date,
-				$start,
 				$end
 			);
 
