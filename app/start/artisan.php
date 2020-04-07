@@ -21,15 +21,19 @@ function handleTimeArgument($time) {
 }
 
 /**
- * @param $now DateTime
+ * @param $time DateTime
  * @return string
  */
-function getRoundedTimestamp($now) {
-    $minutes = intval($now->format("i"));
-    $seconds = intval($now->format("s"));
-    $rawValue = ($minutes + $seconds / 60) / 15;
-    $rounded = round($rawValue) * 15;
-    return $now->format("H").sprintf('%02d', $rounded);
+function getRoundedTimestamp($time) {
+    $interval = 15;
+    $minutes = intval($time->format("i"));
+    $seconds = intval($time->format("s"));
+
+    $rawValue = ($minutes + $seconds / 60) / $interval;
+    $rounded = round($rawValue) * $interval;
+    
+    $time->setTime($time->format('H'), $rounded);
+    return $time->format('H').$time->format('i');
 }
 
 /**
