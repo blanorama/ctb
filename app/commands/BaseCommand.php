@@ -16,7 +16,9 @@ class BaseCommand extends Command {
 	protected function doLogin($phprojekt)
 	{
 		try {
-			$success = $phprojekt->login();
+            setlocale(LC_ALL, null);
+            date_default_timezone_set("Europe/Berlin");
+            $success = $phprojekt->login();
 
 			if (!$success) {
 				$this->comment('[Response] Login Failed!');

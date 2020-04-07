@@ -37,7 +37,7 @@ function getRoundedTimestamp($now) {
  * @throws Exception
  */
 function getNowDateTime() {
-    return new DateTime('now', new DateTimeZone('Europe/Berlin'));
+    return new DateTime('now');
 }
 
 /**
