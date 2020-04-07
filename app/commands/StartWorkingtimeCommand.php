@@ -47,7 +47,6 @@ class StartWorkingtimeCommand extends BaseCommand {
             } else {
                 $this->info('[Action] Start working time');
                 $phprojekt->getTimecardApi()->workStart();
-                $this->info('[Action] Done');
             }
 
 		} catch(InvalidArgumentException $e) {

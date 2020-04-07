@@ -59,9 +59,6 @@ class BookTimeCommand extends BaseCommand {
 				$start,
 				$end
 			);
-
-			$this->info('[Action] Done');
-
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] Something failed here...');
 		}

@@ -64,7 +64,6 @@ class AddProjectTimeCommand extends BaseCommand {
 			);
 
 			$this->call('p:list');
-			$this->info('[Action] Done');
 
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] Something failed here...');

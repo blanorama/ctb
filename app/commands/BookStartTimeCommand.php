@@ -57,8 +57,6 @@ class BookStartTimeCommand extends BaseCommand {
 				$start
 			);
 
-			$this->info('[Action] Done');
-
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] Something failed here...');
 		}

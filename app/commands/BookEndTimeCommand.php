@@ -56,9 +56,6 @@ class BookEndTimeCommand extends BaseCommand {
                 $date,
 				$end
 			);
-
-			$this->info('[Action] Done');
-
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] Something failed here...');
 		}
