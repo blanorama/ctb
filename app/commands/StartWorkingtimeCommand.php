@@ -1,6 +1,7 @@
 <?php
 
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
+use Symfony\Component\Console\Input\InputArgument;
 
 class StartWorkingtimeCommand extends BaseCommand {
 
@@ -19,18 +20,35 @@ class StartWorkingtimeCommand extends BaseCommand {
 		$this->doStartWorkingtime($phprojekt);
 	}
 
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['option', InputArgument::OPTIONAL, 'arbitrary option strings for special handling in logic'],
+        ];
+    }
 
-
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	protected function doStartWorkingtime($phprojekt)
 	{
-		try {
+        $option = $this->argument('option');
 
-			$this->info('[Action] Start working time');
-			$phprojekt->getTimecardApi()->workStart();
-			$this->info('[Action] Done');
+        try {
+            if($option == "round") {
+                $start = getRoundedTimestamp(getNowDateTime());
+                $this->call('t:s:book', ['start' => $start]);
+            } else {
+                $this->info('[Action] Start working time');
+                $phprojekt->getTimecardApi()->workStart();
+                $this->info('[Action] Done');
+            }
 
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] Working time already started');
@@ -38,5 +56,4 @@ class StartWorkingtimeCommand extends BaseCommand {
 
 		$this->call('t:list');
 	}
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
+use Symfony\Component\Console\Input\InputArgument;
 
 class StopWorkingtimeCommand extends BaseCommand {
 
@@ -19,16 +20,35 @@ class StopWorkingtimeCommand extends BaseCommand {
 		$this->doStopWorkingtime($phprojekt);
 	}
 
-	/**
-	 * @param Phprojekt $phprojekt
-	 */
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['option', InputArgument::OPTIONAL, 'arbitrary option strings for special handling in logic'],
+        ];
+    }
+
+    /**
+     * @param Phprojekt $phprojekt
+     * @throws Exception
+     */
 	protected function doStopWorkingtime($phprojekt)
 	{
-		try {
+        $option = $this->argument('option');
 
-			$this->info('[Action] Stop working time');
-			$phprojekt->getTimecardApi()->workEnd();
-			$this->info('[Action] Done');
+        try {
+            if($option == "round") {
+                $stop = getRoundedTimestamp(getNowDateTime());
+                $this->call('t:e:book', ['end' => $stop]);
+            } else {
+                $this->info('[Action] Stop working time');
+                $phprojekt->getTimecardApi()->workEnd();
+                $this->info('[Action] Done');
+            }
 
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] No active working time found');
