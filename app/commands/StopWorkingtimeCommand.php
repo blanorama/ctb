@@ -31,7 +31,7 @@ class StopWorkingtimeCommand extends BaseCommand {
 			$this->info('[Action] Done');
 
 		} catch(InvalidArgumentException $e) {
-			$this->error('[Response] No active workingtime found');
+			$this->error('[Response] No active working time found');
 		}
 
 		$this->call('t:list');
