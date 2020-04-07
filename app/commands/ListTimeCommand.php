@@ -44,6 +44,7 @@ class ListTimeCommand extends BaseCommand {
         $date = handleDateArgument($this, $this->argument('date'));
 
         try {
+            $this->info('[Action] Listing working time for '.strftime('%a, %x', $date->getTimestamp()));
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$workLog = $timeCardApi->getWorkingHours($date);
