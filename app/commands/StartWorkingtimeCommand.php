@@ -45,11 +45,11 @@ class StartWorkingtimeCommand extends BaseCommand {
                 $start = getRoundedTimestamp(getNowDateTime());
                 $this->call('t:s:book', ['start' => $start]);
             } else {
-                $this->info('[Action] Start working time');
+                $date = getNowDateTime();
+                $this->info('[Action] Start working time on '. getInfoDate($date));
                 $phprojekt->getTimecardApi()->workStart();
+                ListTimeCommand::renderWorklogTable($phprojekt, $date);
             }
-
-            ListTimeCommand::renderWorklogTable($phprojekt, getNowDateTime());
         } catch(InvalidArgumentException $e) {
 			$this->error('[Response] Working time already started');
 		}
