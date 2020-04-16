@@ -51,7 +51,7 @@ class BookTimeCommand extends BaseCommand {
 		}
 
 		try {
-			$this->info('[Action] Book working time '.$start.' - '.$end);
+            $this->info(sprintf('[Action] Book working time %s - %s on %s', $start, $end, getInfoDate($date)));
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logWorkingHours(

@@ -49,7 +49,7 @@ class BookEndTimeCommand extends BaseCommand {
 		}
 
 		try {
-			$this->info('[Action] Book working end at '.$end);
+            $this->info(sprintf('[Action] Book working end at %s on %s', $end, getInfoDate($date)));
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logEndWorkingTime(

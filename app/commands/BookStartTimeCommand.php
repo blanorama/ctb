@@ -49,7 +49,7 @@ class BookStartTimeCommand extends BaseCommand {
 		}
 
 		try {
-			$this->info('[Action] Book working start at '.$start);
+			$this->info(sprintf('[Action] Book working start at %s on %s', $start, getInfoDate($date)));
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logStartWorkingTime(

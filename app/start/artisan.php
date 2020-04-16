@@ -37,6 +37,14 @@ function getRoundedTimestamp($time) {
 }
 
 /**
+ * @param $date DateTime
+ * @return string
+ */
+function getInfoDate($date) {
+    return strftime('%a, %x', $date->getTimestamp());
+}
+
+/**
  * @return DateTime
  * @throws Exception
  */
