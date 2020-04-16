@@ -52,12 +52,7 @@ class BookTimeCommand extends BaseCommand {
 		try {
             $this->info(sprintf('[Action] Book working time %s - %s on %s', $start, $end, getInfoDate($date)));
 
-			$timeCardApi = $phprojekt->getTimecardApi();
-			$timeCardApi->logWorkingHours(
-                $date,
-				$start,
-				$end
-			);
+			$phprojekt->getTimecardApi()->logWorkingHours($date, $start, $end);
 
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {

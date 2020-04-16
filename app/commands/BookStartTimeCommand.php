@@ -50,8 +50,7 @@ class BookStartTimeCommand extends BaseCommand {
 		try {
 			$this->info(sprintf('[Action] Book working start at %s on %s', $start, getInfoDate($date)));
 
-			$timeCardApi = $phprojekt->getTimecardApi();
-			$timeCardApi->logStartWorkingTime($date, $start);
+			$phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
 
 		    ListTimeCommand::renderWorklogTable($phprojekt, $date);
 		} catch(InvalidArgumentException $e) {
