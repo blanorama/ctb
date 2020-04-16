@@ -49,10 +49,9 @@ class StopWorkingtimeCommand extends BaseCommand {
                 $phprojekt->getTimecardApi()->workEnd();
             }
 
-		} catch(InvalidArgumentException $e) {
+            ListTimeCommand::renderWorklogTable($phprojekt, getNowDateTime());
+        } catch(InvalidArgumentException $e) {
 			$this->error('[Response] No active working time found');
 		}
-
-		$this->call('t:list');
 	}
 }

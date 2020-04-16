@@ -49,10 +49,9 @@ class StartWorkingtimeCommand extends BaseCommand {
                 $phprojekt->getTimecardApi()->workStart();
             }
 
-		} catch(InvalidArgumentException $e) {
+            ListTimeCommand::renderWorklogTable($phprojekt, getNowDateTime());
+        } catch(InvalidArgumentException $e) {
 			$this->error('[Response] Working time already started');
 		}
-
-		$this->call('t:list');
 	}
 }

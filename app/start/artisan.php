@@ -45,7 +45,7 @@ function getNowDateTime() {
 }
 
 /**
- * @param $callingObject
+ * @param $callingObject object
  * @param $dateString string
  * @return DateTime|false
  * @throws Exception

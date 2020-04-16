@@ -45,21 +45,21 @@ class ListTimeCommand extends BaseCommand {
 
         try {
             $this->info('[Action] Listing working time for '.strftime('%a, %x', $date->getTimestamp()));
-
-			$timeCardApi = $phprojekt->getTimecardApi();
-			$workLog = $timeCardApi->getWorkingHours($date);
-            $this->renderWorklogTable($workLog);
+            $this->renderWorklogTable($phprojekt, $date);
 			exit();
-
 		} catch(InvalidArgumentException $e) {
 			$this->error('[Response] No bookings today...');
 		}
 	}
 
     /**
-     * @param $workLog
+     * @param $phprojekt
+     * @param $date
      */
-    protected function renderWorklogTable($workLog) {
+    static function renderWorklogTable($phprojekt, $date) {
+        $timeCardApi = $phprojekt->getTimecardApi();
+        $workLog = $timeCardApi->getWorkingHours($date);
+
         $table = new Table(new ConsoleOutput());
         $table->setHeaders(['Start', 'End', 'Sum']);
 

@@ -56,10 +56,10 @@ class BookEndTimeCommand extends BaseCommand {
                 $date,
 				$end
 			);
-		} catch(InvalidArgumentException $e) {
+
+            ListTimeCommand::renderWorklogTable($phprojekt, $date);
+        } catch(InvalidArgumentException $e) {
 			$this->error('[Response] Something failed here...');
 		}
-
-		$this->call('t:list', ['date' => $dateString]);
 	}
 }
