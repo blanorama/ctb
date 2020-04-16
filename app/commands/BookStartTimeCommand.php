@@ -40,8 +40,7 @@ class BookStartTimeCommand extends BaseCommand {
 	protected function doBookTime($phprojekt)
 	{
 		$start = handleTimeArgument($this->argument('start'));
-		$dateString = $this->argument('date');
-        $date = handleDateArgument($this, $dateString);
+        $date = handleDateArgument($this, $this->argument('date'));
 
 		if (strlen($start) != 4) {
 			$this->error('[Response] Wrong format... Please use 0100 [1970-01-01] as example.');

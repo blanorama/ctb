@@ -42,8 +42,7 @@ class BookTimeCommand extends BaseCommand {
 	{
 		$start = handleTimeArgument($this->argument('start'));
 		$end = handleTimeArgument($this->argument('end'));
-	    $dateString = $this->argument('date');
-		$date = handleDateArgument($this, $dateString);
+		$date = handleDateArgument($this, $this->argument('date'));
 
 		if (strlen($start) != 4 || strlen($end) != 4) {
 			$this->error('[Response] Wrong format... Please use 0100 0200 [1970-01-01] as example.');
