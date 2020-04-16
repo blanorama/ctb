@@ -43,7 +43,7 @@ class StartWorkingtimeCommand extends BaseCommand {
         try {
             if($option == "round") {
                 $start = getRoundedTimestamp(getNowDateTime());
-                $this->call('t:s:book', ['start' => $start]);
+                $this->call('time:start:book', ['start' => $start]);
             } else {
                 $date = getNowDateTime();
                 $this->info('[Action] Start working time on '. getInfoDate($date));
