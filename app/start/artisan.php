@@ -13,10 +13,16 @@ Artisan::add(new StartWorkingtimeCommand());
 Artisan::add(new StopWorkingtimeCommand());
 
 /**
+ * @param $callingObject object
  * @param $time string
  * @return string
  */
-function handleTimeArgument($time) {
+function handleTimeArgument($callingObject, $time) {
+    if (strlen($time) > 4) {
+        $callingObject->error('[Response] Wrong format... Please use 0100 0200 [1970-01-01] as example.');
+        exit();
+    }
+
     return str_pad($time, 4, '0', STR_PAD_LEFT);
 }
 

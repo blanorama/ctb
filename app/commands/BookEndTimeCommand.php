@@ -39,13 +39,8 @@ class BookEndTimeCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$end = handleTimeArgument($this->argument('end'));
+		$end = handleTimeArgument($this, $this->argument('end'));
         $date = handleDateArgument($this, $this->argument('date'));
-
-		if (strlen($end) != 4) {
-			$this->error('[Response] Wrong format... Please use 0100 [1970-01-01] as example.');
-			exit();
-		}
 
 		try {
             $this->info(sprintf('[Action] Book working end at %s on %s', $end, getInfoDate($date)));

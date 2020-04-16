@@ -39,13 +39,8 @@ class BookStartTimeCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$start = handleTimeArgument($this->argument('start'));
+		$start = handleTimeArgument($this, $this->argument('start'));
         $date = handleDateArgument($this, $this->argument('date'));
-
-		if (strlen($start) != 4) {
-			$this->error('[Response] Wrong format... Please use 0100 [1970-01-01] as example.');
-			exit();
-		}
 
 		try {
 			$this->info(sprintf('[Action] Book working start at %s on %s', $start, getInfoDate($date)));
