@@ -21,7 +21,7 @@ class BaseCommand extends Command {
             $success = $phprojekt->login();
 
 			if (!$success) {
-				$this->comment('[Response] Login Failed!');
+				$this->comment('[RESPONSE] Login Failed!');
 				exit();
 			}
 		} catch(InvalidArgumentException $e) {

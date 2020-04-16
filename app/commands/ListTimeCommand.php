@@ -44,11 +44,11 @@ class ListTimeCommand extends BaseCommand {
         $date = handleDateArgument($this, $this->argument('date'));
 
         try {
-            $this->info('[Action] Listing working time for '.strftime('%a, %x', $date->getTimestamp()));
+            $this->info('[INFO] Listing working time for '.strftime('%a, %x', $date->getTimestamp()));
             $this->renderWorklogTable($phprojekt, $date);
 			exit();
 		} catch(InvalidArgumentException $e) {
-			$this->error('[Response] No bookings today...');
+			$this->error('[RESPONSE] No bookings today...');
 		}
 	}
 

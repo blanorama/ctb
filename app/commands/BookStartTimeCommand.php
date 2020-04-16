@@ -43,13 +43,13 @@ class BookStartTimeCommand extends BaseCommand {
         $date = handleDateArgument($this, $this->argument('date'));
 
 		try {
-			$this->info(sprintf('[Action] Book working start at %s on %s', $start, getInfoDate($date)));
+			$this->info(sprintf('[ACTION] Book working start at %s on %s', $start, getInfoDate($date)));
 
 			$phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
 
 		    ListTimeCommand::renderWorklogTable($phprojekt, $date);
 		} catch(InvalidArgumentException $e) {
-			$this->error('[Response] Something failed here...');
+			$this->error('[RESPONSE] Something failed here...');
 		}
 	}
 }

@@ -45,7 +45,7 @@ class AddProjectTimeCommand extends BaseCommand {
 		$description = $this->argument('description');
 
 		if (strlen($time) != 4) {
-            $this->error('[Response] Wrong format... Please use 0100 as example.');
+            $this->error('[RESPONSE] Wrong format... Please use 0100 as example.');
 			exit();
 		}
 
@@ -53,7 +53,7 @@ class AddProjectTimeCommand extends BaseCommand {
 		$minutes = $time[2] . $time[3];
 
 		try {
-			$this->info('[Action] Book project time');
+			$this->info('[ACTION] Book project time');
 
 			$timeCardApi = $phprojekt->getTimecardApi();
 			$timeCardApi->logProjectHours(
@@ -66,7 +66,7 @@ class AddProjectTimeCommand extends BaseCommand {
 			$this->call('p:list');
 
 		} catch(InvalidArgumentException $e) {
-			$this->error('[Response] Something failed here...');
+			$this->error('[RESPONSE] Something failed here...');
 			$this->comment($e->getMessage());
 		}
 	}

@@ -46,12 +46,12 @@ class StopWorkingtimeCommand extends BaseCommand {
                 $this->call('time:end:book', ['end' => $stop]);
             } else {
                 $date = getNowDateTime();
-                $this->info('[Action] Stop working time on '. getInfoDate($date));
+                $this->info('[ACTION] Stop working time on '. getInfoDate($date));
                 $phprojekt->getTimecardApi()->workEnd();
                 ListTimeCommand::renderWorklogTable($phprojekt, $date);
             }
         } catch(InvalidArgumentException $e) {
-			$this->error('[Response] No active working time found');
+			$this->error('[RESPONSE] No active working time found');
 		}
 	}
 }
