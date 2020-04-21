@@ -17,7 +17,7 @@ class BaseCommand extends Command {
 	{
 		try {
             setlocale(LC_ALL, 'de_DE.UTF-8');
-            date_default_timezone_set("Europe/Berlin");
+            date_default_timezone_set('Europe/Berlin');
             $success = $phprojekt->login();
 
 			if (!$success) {

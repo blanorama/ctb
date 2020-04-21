@@ -33,8 +33,8 @@ function handleTimeArgument($callingObject, $time) {
  */
 function getRoundedTimestamp($time) {
     $interval = 15;
-    $minutes = intval($time->format("i"));
-    $seconds = intval($time->format("s"));
+    $minutes = intval($time->format('i'));
+    $seconds = intval($time->format('s'));
 
     $rawValue = ($minutes + $seconds / 60) / $interval;
     $rounded = round($rawValue) * $interval;

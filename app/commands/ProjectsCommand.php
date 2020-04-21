@@ -42,7 +42,7 @@ class ProjectsCommand extends BaseCommand {
 
 		foreach($projectLog as $log) {
 			$table->addRow([
-				sprintf("%s (%s)", $log->getName(), $log->getProjectIndex()),
+				sprintf('%s (%s)', $log->getName(), $log->getProjectIndex()),
 				$log->getDescription(),
 				$log->getHours()
 			]);
