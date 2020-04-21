@@ -53,8 +53,8 @@ class ListTimeCommand extends BaseCommand {
 	}
 
     /**
-     * @param $phprojekt
-     * @param $date
+     * @param Phprojekt $phprojekt
+     * @param DateTime $date
      */
     static function renderWorklogTable($phprojekt, $date) {
         $timeCardApi = $phprojekt->getTimecardApi();
