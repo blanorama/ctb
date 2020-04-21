@@ -14,8 +14,8 @@ Artisan::add(new StartWorkingtimeCommand());
 Artisan::add(new StopWorkingtimeCommand());
 
 /**
- * @param $callingObject object
- * @param $time string
+ * @param object $callingObject
+ * @param string $time
  * @return string
  */
 function handleTimeArgument($callingObject, $time) {
@@ -28,7 +28,7 @@ function handleTimeArgument($callingObject, $time) {
 }
 
 /**
- * @param $time DateTime
+ * @param DateTime $time
  * @return string
  */
 function getRoundedTimestamp($time) {
@@ -44,7 +44,7 @@ function getRoundedTimestamp($time) {
 }
 
 /**
- * @param $date DateTime
+ * @param DateTime $date
  * @return string
  */
 function getInfoDate($date) {
@@ -60,8 +60,8 @@ function getNowDateTime() {
 }
 
 /**
- * @param $callingObject object
- * @param $dateString string
+ * @param object $callingObject
+ * @param string $dateString
  * @return DateTime|false
  * @throws Exception
  */
