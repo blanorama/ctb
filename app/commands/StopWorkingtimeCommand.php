@@ -28,7 +28,7 @@ class StopWorkingtimeCommand extends BaseCommand {
     protected function getArguments()
     {
         return [
-            ['option', InputArgument::OPTIONAL, 'arbitrary option strings for special handling in logic'],
+            ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
         ];
     }
 
