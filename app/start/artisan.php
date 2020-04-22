@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 
 Artisan::add(new AddProjectTimeCommand());
 Artisan::add(new BookEndTimeCommand());
+Artisan::add(new BookMissedPauseCommand());
 Artisan::add(new BookPauseCommand());
 Artisan::add(new BookStartTimeCommand());
 Artisan::add(new BookTimeCommand());
