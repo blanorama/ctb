@@ -41,7 +41,7 @@ class StopWorkingtimeCommand extends BaseCommand {
         $option = $this->argument('option');
 
         try {
-            if($option == 'round') {
+            if($option == 'rounded') {
                 $stop = getRoundedTimestamp(getNowDateTime());
                 $this->call('time:end:book', ['end' => $stop]);
             } else {
