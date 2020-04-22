@@ -6,7 +6,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 class BookEndTimeCommand extends BaseCommand {
 
 	protected $name = 'time:end:book';
-	protected $description = 'Book end of working time, optionally for a specific date';
+	protected $description = 'Book end of working time, optionally for a specific date.';
 
 	public function fire()
 	{

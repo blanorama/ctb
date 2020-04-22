@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class ListTimeCommand extends BaseCommand {
 
 	protected $name = 'time:list';
-	protected $description = 'List booked working time for a specific date.';
+	protected $description = 'List booked working time for today, optionally a specific date.';
 
 	public function fire()
 	{

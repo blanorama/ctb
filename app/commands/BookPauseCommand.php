@@ -6,7 +6,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 class BookPauseCommand extends BaseCommand {
 
 	protected $name = 'pause:book';
-	protected $description = 'Book working time, optionally for a specific date';
+	protected $description = 'Book pause time with end and re-start working, optionally for a specific date.';
 
 	public function fire()
 	{

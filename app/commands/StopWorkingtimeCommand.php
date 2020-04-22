@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\InputArgument;
 class StopWorkingtimeCommand extends BaseCommand {
 
 	protected $name = 'time:stop';
-	protected $description = 'Stop workingtime.';
+	protected $description = 'Stop working time; "rounded" or "precise" defined by first arg';
 
 	public function fire()
 	{
