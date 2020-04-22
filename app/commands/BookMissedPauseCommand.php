@@ -29,8 +29,8 @@ class BookMissedPauseCommand extends BaseCommand {
 	protected function getArguments()
 	{
 		return [
-			['end', InputArgument::REQUIRED, 'Ended working at HHMM'],
             ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
+			['end', InputArgument::REQUIRED, 'Ended working at HHMM'],
 		];
 	}
 
@@ -40,8 +40,8 @@ class BookMissedPauseCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$end = handleTimeArgument($this, $this->argument('end'));
         $option = $this->argument('option');
+		$end = handleTimeArgument($this, $this->argument('end'));
 
 		try {
             $info = '[ACTION] Follow up missed pause start at '.$end;
