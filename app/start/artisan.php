@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Artisan;
 
 Artisan::add(new AddProjectTimeCommand());
-Artisan::add(new BookEndTimeCommand());
+Artisan::add(new BookTimeEndCommand());
 Artisan::add(new BookMissedPauseCommand());
 Artisan::add(new BookPauseCommand());
-Artisan::add(new BookStartTimeCommand());
+Artisan::add(new BookTimeStartCommand());
 Artisan::add(new BookTimeCommand());
 Artisan::add(new ListOverviewCommand());
 Artisan::add(new ListTimeCommand());

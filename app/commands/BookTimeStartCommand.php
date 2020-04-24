@@ -3,10 +3,10 @@
 use Symfony\Component\Console\Input\InputArgument;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
-class BookEndTimeCommand extends BaseCommand {
+class BookTimeStartCommand extends BaseCommand {
 
-	protected $name = 'end:time:book';
-	protected $description = 'Book end of working time, optionally for a specific date.';
+	protected $name = 'start:time:book';
+	protected $description = 'Book start of working time, optionally for a specific date.';
 
 	public function fire()
 	{
@@ -28,7 +28,7 @@ class BookEndTimeCommand extends BaseCommand {
 	protected function getArguments()
 	{
 		return [
-			['end', InputArgument::REQUIRED, 'Ended working at HHMM'],
+			['start', InputArgument::REQUIRED, 'Started working at HHMM'],
 			['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to book time for'],
 		];
 	}
@@ -39,16 +39,16 @@ class BookEndTimeCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$end = handleTimeArgument($this, $this->argument('end'));
+		$start = handleTimeArgument($this, $this->argument('start'));
         $date = handleDateArgument($this, $this->argument('date'));
 
 		try {
-            $this->info(sprintf('[ACTION] Book working end at %s on %s', $end, getInfoDate($date)));
+			$this->info(sprintf('[ACTION] Book working start at %s on %s', $start, getInfoDate($date)));
 
-			$phprojekt->getTimecardApi()->logEndWorkingTime($date, $end);
+			$phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
 
-            ListTimeCommand::renderWorklogTable($phprojekt, $date);
-        } catch(InvalidArgumentException $e) {
+		    ListTimeCommand::renderWorklogTable($phprojekt, $date);
+		} catch(InvalidArgumentException $e) {
 			$this->error('[RESPONSE] Something failed here...');
 		}
 	}
