@@ -5,7 +5,7 @@ use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 
 class BookMissedPauseCommand extends BaseCommand {
 
-	protected $name = 'pause:missed:book';
+	protected $name = 'missed:pause:book';
 	protected $description = 'Book missed pause start and automatic working start;
 	                         "rounded" or "precise" defined by first arg';
 
