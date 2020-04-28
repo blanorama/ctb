@@ -43,7 +43,7 @@ class ListOverviewCommand extends BaseCommand {
             return;
 
         } catch(InvalidArgumentException $e) {
-            $this->error('[RESPONSE] No information retrieved.');
+            $this->error('[RESPONSE] No information retrieved: '.$e);
         }
     }
 }
