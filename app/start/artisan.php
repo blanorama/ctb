@@ -6,6 +6,7 @@ Artisan::add(new AddProjectTimeCommand());
 Artisan::add(new BookMissedPauseCommand());
 Artisan::add(new BookMissedTimeCommand());
 Artisan::add(new BookPauseCommand());
+Artisan::add(new BookTaskSwitchCommand());
 Artisan::add(new BookTimeCommand());
 Artisan::add(new BookTimeEndCommand());
 Artisan::add(new BookTimeStartCommand());
