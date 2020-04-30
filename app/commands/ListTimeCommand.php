@@ -1,5 +1,6 @@
 <?php
 
+use PhprojektRemoteApi\Tools\Convert;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputArgument;
@@ -74,7 +75,7 @@ class ListTimeCommand extends BaseCommand {
                 $table->addRow([
                     $start->format('H:i'),
                     $end->format('H:i'),
-                    $diff->format('%h') + $diff->format('%i') / 60
+                    Convert::text2hours($diff->format('%h : %i'))
                 ]);
             } else {
                 $table->addRow([
