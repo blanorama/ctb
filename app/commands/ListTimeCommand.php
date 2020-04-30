@@ -74,7 +74,7 @@ class ListTimeCommand extends BaseCommand {
                 $table->addRow([
                     $start->format('H:i'),
                     $end->format('H:i'),
-                    $diff->format('%h h %i m')
+                    $diff->format('%h') + $diff->format('%i') / 60
                 ]);
             } else {
                 $table->addRow([
@@ -89,7 +89,7 @@ class ListTimeCommand extends BaseCommand {
         $table->addRow([
             '',
             'Overall',
-            $workLog->getOverallTime()
+            $workLog->getOverallTimeString()
         ]);
 
         $table->render();
