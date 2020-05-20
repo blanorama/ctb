@@ -49,7 +49,7 @@ class ListTimeCommand extends BaseCommand {
             $this->renderWorklogTable($phprojekt, $date);
 			exit();
 		} catch(InvalidArgumentException $e) {
-			$this->error('[RESPONSE] No bookings today: '.$e);
+			$this->error('[ERROR] No bookings today: '.$e);
 		}
 	}
 

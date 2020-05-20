@@ -23,7 +23,7 @@ Artisan::add(new StopWorkingtimeCommand());
  */
 function handleTimeArgument($callingObject, $time) {
     if (strlen($time) > 4) {
-        $callingObject->error('[RESPONSE] Wrong format... Please use 0100 0200 [1970-01-01] as example.');
+        $callingObject->error('[ERROR] Wrong format... Please use 0100 0200 [1970-01-01] as example.');
         exit();
     }
 
@@ -72,7 +72,7 @@ function handleDateArgument($callingObject, $dateString) {
     $date = $dateString == null ? getNowDateTime() : DateTime::createFromFormat('Y-m-d', $dateString);
 
     if (!$date) {
-        $callingObject->error('[RESPONSE] Wrong date format... Please use 1970-01-01 as example.');
+        $callingObject->error('[ERROR] Wrong date format... Please use 1970-01-01 as example.');
         exit();
     }
 

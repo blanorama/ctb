@@ -57,7 +57,7 @@ class BookTaskSwitchCommand extends BaseCommand {
 
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
-			$this->error('[RESPONSE] Working time already started: '.$e);
+			$this->error('[ERROR] Working time already started: '.$e);
 		}
 	}
 }

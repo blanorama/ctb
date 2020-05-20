@@ -49,7 +49,7 @@ class BookTimeStartCommand extends BaseCommand {
 
 		    ListTimeCommand::renderWorklogTable($phprojekt, $date);
 		} catch(InvalidArgumentException $e) {
-			$this->error('[RESPONSE] Something failed here: '.$e);
+			$this->error('[ERROR] Something failed here: '.$e);
 		}
 	}
 }

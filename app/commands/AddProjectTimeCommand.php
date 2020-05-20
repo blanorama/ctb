@@ -45,7 +45,7 @@ class AddProjectTimeCommand extends BaseCommand {
 		$description = $this->argument('description');
 
 		if (strlen($time) != 4) {
-            $this->error('[RESPONSE] Wrong format... Please use 0100 as example.');
+            $this->error('[ERROR] Wrong format... Please use 0100 as example.');
 			exit();
 		}
 
@@ -66,7 +66,7 @@ class AddProjectTimeCommand extends BaseCommand {
 			$this->call('p:list');
 
 		} catch(InvalidArgumentException $e) {
-			$this->error('[RESPONSE] Something failed here: '.$e);
+			$this->error('[ERROR] Something failed here: '.$e);
 			$this->comment($e->getMessage());
 		}
 	}

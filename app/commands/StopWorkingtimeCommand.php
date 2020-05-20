@@ -51,7 +51,7 @@ class StopWorkingtimeCommand extends BaseCommand {
                 ListTimeCommand::renderWorklogTable($phprojekt, $date);
             }
         } catch(InvalidArgumentException $e) {
-			$this->error('[RESPONSE] No active working time found: '.$e);
+			$this->error('[ERROR] No active working time found: '.$e);
 		}
 	}
 }
