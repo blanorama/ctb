@@ -49,11 +49,11 @@ class BookMissedPauseCommand extends BaseCommand {
             $infoDate = getInfoDate($date);
 			$phprojekt->getTimecardApi()->logEndWorkingTime($date, $end);
 
-            if($option == 'rounded') {
+            if ($option == 'rounded') {
                 $start = getRoundedTimestamp(getNowDateTime());
                 $this->info(sprintf('%s, start working at %s on %s', $info, $start, $infoDate));
                 $phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
-            } else if($option == 'precise') {
+            } else if ($option == 'precise') {
                 $this->info(sprintf('%s, start working now on %s', $info, $infoDate));
                 $phprojekt->getTimecardApi()->workStart();
             } else {

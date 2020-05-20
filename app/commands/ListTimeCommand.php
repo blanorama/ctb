@@ -69,7 +69,7 @@ class ListTimeCommand extends BaseCommand {
             $start = $row->getStart();
             $end   = $row->getEnd();
 
-            if($end != null) {
+            if ($end != null) {
                 $diff  = $end->diff($start);
 
                 $table->addRow([

@@ -41,10 +41,10 @@ class StartWorkingtimeCommand extends BaseCommand {
         $option = $this->argument('option');
 
         try {
-            if($option == 'rounded') {
+            if ($option == 'rounded') {
                 $start = getRoundedTimestamp(getNowDateTime());
                 $this->call('start:time:book', ['start' => $start]);
-            } else if($option == 'precise') {
+            } else if ($option == 'precise') {
                 $date = getNowDateTime();
                 $this->info('[ACTION] Start working time on '. getInfoDate($date));
                 $phprojekt->getTimecardApi()->workStart();

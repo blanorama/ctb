@@ -44,12 +44,12 @@ class BookTaskSwitchCommand extends BaseCommand {
         $infoDate = getInfoDate($date);
 
         try {
-            if($option == 'rounded') {
+            if ($option == 'rounded') {
                 $time = getRoundedTimestamp(getNowDateTime());
                 $this->info(sprintf('[ACTION] Switch task at %s on %s', $time, $infoDate));
                 $phprojekt->getTimecardApi()->logEndWorkingTime($date, $time);
                 $phprojekt->getTimecardApi()->logStartWorkingTime($date, $time);
-            } else if($option == 'precise') {
+            } else if ($option == 'precise') {
                 $this->info('[ACTION] Switch task on '. $infoDate);
                 $phprojekt->getTimecardApi()->workEnd();
                 $phprojekt->getTimecardApi()->workStart();
