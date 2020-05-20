@@ -52,11 +52,12 @@ class BookMissedTimeCommand extends BaseCommand {
                 $end = getRoundedTimestamp(getNowDateTime());
                 $this->info(sprintf('%s, working end at %s on %s', $info, $end, $infoDate));
                 $phprojekt->getTimecardApi()->logEndWorkingTime($date, $end);
-            } else {
+            } else if($option == 'precise') {
                 $this->info(sprintf('%s, working end now on %s', $info, $infoDate));
                 $phprojekt->getTimecardApi()->workEnd();
+            } else {
+                $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
             }
-
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);

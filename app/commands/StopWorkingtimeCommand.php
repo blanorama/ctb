@@ -44,11 +44,13 @@ class StopWorkingtimeCommand extends BaseCommand {
             if($option == 'rounded') {
                 $stop = getRoundedTimestamp(getNowDateTime());
                 $this->call('end:time:book', ['end' => $stop]);
-            } else {
+            } else if($option == 'precise') {
                 $date = getNowDateTime();
                 $this->info('[ACTION] Stop working time on '. getInfoDate($date));
                 $phprojekt->getTimecardApi()->workEnd();
                 ListTimeCommand::renderWorklogTable($phprojekt, $date);
+            } else {
+                $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
             }
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] No active working time found: '.$e);

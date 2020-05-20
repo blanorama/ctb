@@ -49,12 +49,13 @@ class BookTaskSwitchCommand extends BaseCommand {
                 $this->info(sprintf('[ACTION] Switch task at %s on %s', $time, $infoDate));
                 $phprojekt->getTimecardApi()->logEndWorkingTime($date, $time);
                 $phprojekt->getTimecardApi()->logStartWorkingTime($date, $time);
-            } else {
+            } else if($option == 'precise') {
                 $this->info('[ACTION] Switch task on '. $infoDate);
                 $phprojekt->getTimecardApi()->workEnd();
                 $phprojekt->getTimecardApi()->workStart();
+            } else {
+			    $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
             }
-
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Working time already started: '.$e);

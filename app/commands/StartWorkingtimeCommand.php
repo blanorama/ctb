@@ -44,11 +44,13 @@ class StartWorkingtimeCommand extends BaseCommand {
             if($option == 'rounded') {
                 $start = getRoundedTimestamp(getNowDateTime());
                 $this->call('start:time:book', ['start' => $start]);
-            } else {
+            } else if($option == 'precise') {
                 $date = getNowDateTime();
                 $this->info('[ACTION] Start working time on '. getInfoDate($date));
                 $phprojekt->getTimecardApi()->workStart();
                 ListTimeCommand::renderWorklogTable($phprojekt, $date);
+            } else {
+                $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
             }
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Working time already started: '.$e);

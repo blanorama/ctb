@@ -53,11 +53,12 @@ class BookMissedPauseCommand extends BaseCommand {
                 $start = getRoundedTimestamp(getNowDateTime());
                 $this->info(sprintf('%s, start working at %s on %s', $info, $start, $infoDate));
                 $phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
-            } else {
+            } else if($option == 'precise') {
                 $this->info(sprintf('%s, start working now on %s', $info, $infoDate));
                 $phprojekt->getTimecardApi()->workStart();
+            } else {
+                $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
             }
-
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);
