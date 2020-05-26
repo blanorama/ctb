@@ -34,6 +34,8 @@ function handleTimeArgument($callingObject, $time) {
             return $time.'00';
         case 3:
             return '0'.$time;
+        default:
+            return $time;
     }
 }
 
