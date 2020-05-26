@@ -27,7 +27,14 @@ function handleTimeArgument($callingObject, $time) {
         exit();
     }
 
-    return str_pad($time, 4, '0', STR_PAD_LEFT);
+    switch (strlen($time)) {
+        case 1:
+            return '0'.$time.'00';
+        case 2:
+            return $time.'00';
+        case 3:
+            return '0'.$time;
+    }
 }
 
 /**
@@ -41,7 +48,7 @@ function getRoundedTimestamp($time) {
 
     $rawValue = ($minutes + $seconds / 60) / $interval;
     $rounded = round($rawValue) * $interval;
-    
+
     $time->setTime($time->format('H'), $rounded);
     return $time->format('H').$time->format('i');
 }
