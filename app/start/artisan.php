@@ -21,21 +21,36 @@ Artisan::add(new StopWorkingtimeCommand());
  * @param string $time
  * @return string
  */
-function handleTimeArgument($callingObject, $time) {
-    if (strlen($time) > 4) {
-        $callingObject->error('[ERROR] Wrong format... Please use 0100 0200 [1970-01-01] as example.');
-        exit();
+function handleTimeArgument($callingObject, $option, $time) {
+    $now = getNowDateTime();
+
+    if ($option == 'rounded') {
+        $now = getRoundedTimestamp($now);
+    } elseif ($option != 'precise') {
+        $callingObject->error(sprintf('[ERROR] Unknown option in first arg "%s"; possible values: "rounded", "precise"', $option));
     }
 
-    switch (strlen($time)) {
-        case 1:
-            return '0'.$time.'00';
-        case 2:
-            return $time.'00';
-        case 3:
-            return '0'.$time;
-        default:
-            return $time;
+    if ($time == null) {
+        return
+    }
+
+    $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($time);
+    if ($duration < 7) {
+
+    } elseif (strlen($time) > 4) {
+        $callingObject->error('[ERROR] Wrong time format... Please use decimal format for duration in hours or time in format [H]H[MM].');
+        exit();
+    } else {
+        switch (strlen($time)) {
+            case 1:
+                return '0'.$time.'00';
+            case 2:
+                return $time.'00';
+            case 3:
+                return '0'.$time;
+            default:
+                return $time;
+        }
     }
 }
 
