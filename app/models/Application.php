@@ -11,7 +11,7 @@ class Application extends Illuminate\Console\Application
             require $path;
         }
 
-        if (isset($this->laravel['events']) && App::environment() == 'local')
+        if (isset($this->laravel['events']) && App::environment() === 'local')
         {
             $this->laravel['events']
                 ->fire('artisan.start', array($this));

@@ -93,7 +93,7 @@ function getNowDateTime() {
  * @throws Exception
  */
 function handleDateArgument($callingObject, $dateString) {
-    $date = $dateString == null ? getNowDateTime() : DateTime::createFromFormat('Y-m-d', $dateString);
+    $date = $dateString === null ? getNowDateTime() : DateTime::createFromFormat('Y-m-d', $dateString);
 
     if (!$date) {
         $callingObject->error('[ERROR] Wrong date format... Please use 1970-01-01 as example.');

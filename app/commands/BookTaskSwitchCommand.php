@@ -45,13 +45,13 @@ class BookTaskSwitchCommand extends BaseCommand {
             $date = getNowDateTime();
             $infoDate = getInfoDate($date);
 
-            if ($option == 'rounded') {
+            if ($option === 'rounded') {
                 $this->info(sprintf('[ACTION] Switch task at %s on %s', $time, $infoDate));
                 $time = getRoundedTimestamp(getNowDateTime());
                 $phprojekt->getTimecardApi()->logEndWorkingTime($date, $time);
                 $phprojekt->getTimecardApi()->logStartWorkingTime($date, $time);
-            } else if ($option == 'precise') {
-                if ($time != null) $this->error('[ERROR] Duration in "precise" mode not supported');
+            } else if ($option === 'precise') {
+                if ($time !== null) $this->error('[ERROR] Duration in "precise" mode not supported');
                 else {
                     $this->info('[ACTION] Switch task on '. $infoDate);
                     $phprojekt->getTimecardApi()->workEnd();

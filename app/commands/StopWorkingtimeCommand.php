@@ -41,10 +41,10 @@ class StopWorkingtimeCommand extends BaseCommand {
         $option = $this->argument('option');
 
         try {
-            if ($option == 'rounded') {
+            if ($option === 'rounded') {
                 $stop = getRoundedTimestamp(getNowDateTime());
                 $this->call('end:time:book', ['end' => $stop]);
-            } else if ($option == 'precise') {
+            } else if ($option === 'precise') {
                 $date = getNowDateTime();
                 $this->info('[ACTION] Stop working time on '. getInfoDate($date));
                 $phprojekt->getTimecardApi()->workEnd();

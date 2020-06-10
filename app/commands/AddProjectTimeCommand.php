@@ -44,7 +44,7 @@ class AddProjectTimeCommand extends BaseCommand {
 		$time = $this->argument('time');
 		$description = $this->argument('description');
 
-		if (strlen($time) != 4) {
+		if (strlen($time) !== 4) {
             $this->error('[ERROR] Wrong format... Please use 0100 as example.');
 			exit();
 		}

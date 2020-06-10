@@ -48,11 +48,11 @@ class BookMissedTimeCommand extends BaseCommand {
             $infoDate = getInfoDate($date);
 			$phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
 
-            if ($option == 'rounded') {
+            if ($option === 'rounded') {
                 $end = getRoundedTimestamp(getNowDateTime());
                 $this->info(sprintf('%s, working end at %s on %s', $info, $end, $infoDate));
                 $phprojekt->getTimecardApi()->logEndWorkingTime($date, $end);
-            } else if ($option == 'precise') {
+            } else if ($option === 'precise') {
                 $this->info(sprintf('%s, working end now on %s', $info, $infoDate));
                 $phprojekt->getTimecardApi()->workEnd();
             } else {
