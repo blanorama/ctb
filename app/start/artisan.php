@@ -17,46 +17,45 @@ Artisan::add(new StartWorkingtimeCommand());
 Artisan::add(new StopWorkingtimeCommand());
 
 /**
- * @param object $callingObject
+ * @param string $option
  * @param string $time
  * @return string
+ * @throws Exception
  */
-function handleTimeArgument($callingObject, $option, $time) {
+function handleTimeArgument($option, $time) {
+    $wrongFormat = '[ERROR] Wrong time format... Please use decimal format for duration in hours or time in format [H]H[MM].';
+
     $now = getNowDateTime();
+    if ($option === 'rounded') $now = getRoundedTimestamp($now);
+    elseif ($option !== 'precise') throw new Exception(sprintf('[ERROR] Unknown option in first arg 
+    "%s"; possible values: "rounded", "precise"', $option));
 
-    if ($option == 'rounded') {
-        $now = getRoundedTimestamp($now);
-    } elseif ($option != 'precise') {
-        $callingObject->error(sprintf('[ERROR] Unknown option in first arg "%s"; possible values: "rounded", "precise"', $option));
-    }
-
-    if ($time == null) {
-        return
-    }
-
-    $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($time);
-    if ($duration < 7) {
-
-    } elseif (strlen($time) > 4) {
-        $callingObject->error('[ERROR] Wrong time format... Please use decimal format for duration in hours or time in format [H]H[MM].');
-        exit();
-    } else {
-        switch (strlen($time)) {
-            case 1:
-                return '0'.$time.'00';
-            case 2:
-                return $time.'00';
-            case 3:
-                return '0'.$time;
-            default:
-                return $time;
+    if ($time !== null) {
+        $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($time);
+        if (!$duration) throw new Exception($wrongFormat);
+        if (!strstr($time, ",") && $duration >= 7) {
+            switch (strlen($time)) {
+                case 1:
+                    return '0' . $time . '00';
+                case 2:
+                    return $time . '00';
+                case 3:
+                    return '0' . $time;
+                case 4:
+                    return $time;
+                default:
+                    throw new Exception($wrongFormat);
+            }
+        } else {
+            return $now - $duration;
         }
     }
+    return $now->format('H') . $now->format('i');;
 }
 
 /**
  * @param DateTime $time
- * @return string
+ * @return DateTime
  */
 function getRoundedTimestamp($time) {
     $interval = 15;
@@ -66,8 +65,7 @@ function getRoundedTimestamp($time) {
     $rawValue = ($minutes + $seconds / 60) / $interval;
     $rounded = round($rawValue) * $interval;
 
-    $time->setTime($time->format('H'), $rounded);
-    return $time->format('H').$time->format('i');
+    return $time->setTime($time->format('H'), $rounded);
 }
 
 /**
@@ -83,22 +81,16 @@ function getInfoDate($date) {
  * @throws Exception
  */
 function getNowDateTime() {
-    return new DateTime('now');
+    return new DateTime();
 }
 
 /**
- * @param object $callingObject
  * @param string $dateString
  * @return DateTime|false
  * @throws Exception
  */
-function handleDateArgument($callingObject, $dateString) {
+function handleDateArgument($dateString) {
     $date = $dateString === null ? getNowDateTime() : DateTime::createFromFormat('Y-m-d', $dateString);
-
-    if (!$date) {
-        $callingObject->error('[ERROR] Wrong date format... Please use 1970-01-01 as example.');
-        exit();
-    }
-
+    if (!$date) throw new Exception('[ERROR] Wrong date format... Please use 1970-01-01 as example.');
     return $date;
 }
