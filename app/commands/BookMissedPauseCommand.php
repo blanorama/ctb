@@ -40,10 +40,10 @@ class BookMissedPauseCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-        $option = $this->argument('option');
-		$end = handleTimeArgument($this, $this->argument('end'));
-
 		try {
+            $option = $this->argument('option');
+            $end = handleTimeArgument($option, $this->argument('end'));
+
             $info = '[ACTION] Follow up missed pause start at '.$end;
             $date = getNowDateTime();
             $infoDate = getInfoDate($date);

@@ -40,15 +40,13 @@ class BookTimeCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$start = handleTimeArgument($this, $this->argument('start'));
-		$end = handleTimeArgument($this, $this->argument('end'));
-		$date = handleDateArgument($this, $this->argument('date'));
-
 		try {
+            $start = handleTimeArgument($this, $this->argument('start'));
+            $end = handleTimeArgument($this, $this->argument('end'));
+            $date = handleDateArgument($this->argument('date'));
+
             $this->info(sprintf('[ACTION] Book working time %s - %s on %s', $start, $end, getInfoDate($date)));
-
 			$phprojekt->getTimecardApi()->logWorkingHours($date, $start, $end);
-
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);

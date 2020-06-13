@@ -27,8 +27,8 @@ function handleTimeArgument($option, $time) {
 
     $now = getNowDateTime();
     if ($option === 'rounded') $now = getRoundedTimestamp($now);
-    elseif ($option !== 'precise') throw new Exception(sprintf('[ERROR] Unknown option in first arg 
-    "%s"; possible values: "rounded", "precise"', $option));
+    elseif ($option !== 'precise') throw new Exception(sprintf(
+        '[ERROR] Unknown option in first arg "%s"; possible values: "rounded", "precise"', $option));
 
     if ($time !== null) {
         $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($time);
@@ -47,7 +47,7 @@ function handleTimeArgument($option, $time) {
                     throw new Exception($wrongFormat);
             }
         } else {
-            return $now - $duration;
+            $now = $now->sub(new DateInterval(sprintf("PT%dM", $duration * 60)));
         }
     }
     return $now->format('H') . $now->format('i');;

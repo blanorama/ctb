@@ -28,7 +28,8 @@ class BookTimeStartCommand extends BaseCommand {
 	protected function getArguments()
 	{
 		return [
-			['start', InputArgument::REQUIRED, 'Started working at HHMM'],
+            ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
+			['start', InputArgument::OPTIONAL, 'Started working at HHMM'],
 			['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to book time for'],
 		];
 	}
@@ -39,14 +40,12 @@ class BookTimeStartCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$start = handleTimeArgument($this, $this->argument('start'));
-        $date = handleDateArgument($this, $this->argument('date'));
-
 		try {
+            $start = handleTimeArgument($option = $this->argument('option'), $this->argument('start'));
+            $date = handleDateArgument($this->argument('date'));
+
 			$this->info(sprintf('[ACTION] Book working start at %s on %s', $start, getInfoDate($date)));
-
 			$phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
-
 		    ListTimeCommand::renderWorklogTable($phprojekt, $date);
 		} catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);

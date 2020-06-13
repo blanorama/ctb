@@ -39,9 +39,8 @@ class StartWorkingtimeCommand extends BaseCommand {
      */
 	protected function doStartWorkingtime($phprojekt)
 	{
-        $option = $this->argument('option');
-
         try {
+            $option = $this->argument('option');
             if ($option === 'rounded') {
                 $start = getRoundedTimestamp(getNowDateTime());
                 $this->call('start:time:book', ['start' => $start]);

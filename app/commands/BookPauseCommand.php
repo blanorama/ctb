@@ -40,17 +40,15 @@ class BookPauseCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$end = handleTimeArgument($this, $this->argument('end'));
-		$start = handleTimeArgument($this, $this->argument('start'));
-		$date = handleDateArgument($this, $this->argument('date'));
-
 		try {
-            $this->info(sprintf('[ACTION] Book pause time %s - %s on %s', $end, $start, getInfoDate($date)));
+            $end = handleTimeArgument($this, $this->argument('end'));
+            $start = handleTimeArgument($this, $this->argument('start'));
+            $date = handleDateArgument($this->argument('date'));
 
+            $this->info(sprintf('[ACTION] Book pause time %s - %s on %s', $end, $start, getInfoDate($date)));
             $timeCardApi = $phprojekt->getTimecardApi();
             $timeCardApi->logEndWorkingTime($date, $end);
             $timeCardApi->logStartWorkingTime($date, $start);
-
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);

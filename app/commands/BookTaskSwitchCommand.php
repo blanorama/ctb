@@ -41,25 +41,13 @@ class BookTaskSwitchCommand extends BaseCommand {
 	protected function doStartWorkingtime($phprojekt)
 	{
         try {
-            $time = handleTimeArgument($this, $this->argument('option'), $this->argument('time'));
+            $time = handleTimeArgument($this->argument('option'), $this->argument('time'));
             $date = getNowDateTime();
             $infoDate = getInfoDate($date);
 
-            if ($option === 'rounded') {
-                $this->info(sprintf('[ACTION] Switch task at %s on %s', $time, $infoDate));
-                $time = getRoundedTimestamp(getNowDateTime());
-                $phprojekt->getTimecardApi()->logEndWorkingTime($date, $time);
-                $phprojekt->getTimecardApi()->logStartWorkingTime($date, $time);
-            } else if ($option === 'precise') {
-                if ($time !== null) $this->error('[ERROR] Duration in "precise" mode not supported');
-                else {
-                    $this->info('[ACTION] Switch task on '. $infoDate);
-                    $phprojekt->getTimecardApi()->workEnd();
-                    $phprojekt->getTimecardApi()->workStart();
-                }
-            } else {
-                $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
-            }
+            $this->info(sprintf('[ACTION] Switch task at %s on %s', $time, $infoDate));
+            $phprojekt->getTimecardApi()->logEndWorkingTime($date, $time);
+            $phprojekt->getTimecardApi()->logStartWorkingTime($date, $time);
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] '.$e);

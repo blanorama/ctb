@@ -39,14 +39,12 @@ class BookTimeEndCommand extends BaseCommand {
      */
 	protected function doBookTime($phprojekt)
 	{
-		$end = handleTimeArgument($this, $this->argument('end'));
-        $date = handleDateArgument($this, $this->argument('date'));
-
 		try {
+            $end = handleTimeArgument($this, $this->argument('end'));
+            $date = handleDateArgument($this->argument('date'));
+
             $this->info(sprintf('[ACTION] Book working end at %s on %s', $end, getInfoDate($date)));
-
 			$phprojekt->getTimecardApi()->logEndWorkingTime($date, $end);
-
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);

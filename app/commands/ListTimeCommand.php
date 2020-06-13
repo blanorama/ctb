@@ -42,9 +42,9 @@ class ListTimeCommand extends BaseCommand {
      */
 	protected function doListWorkingtime($phprojekt)
 	{
-        $date = handleDateArgument($this, $this->argument('date'));
-
         try {
+            $date = handleDateArgument($this->argument('date'));
+
             $this->info('[INFO] Listing working time for '.strftime('%a, %x', $date->getTimestamp()));
             $this->renderWorklogTable($phprojekt, $date);
 			exit();
