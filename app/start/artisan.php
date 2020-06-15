@@ -23,7 +23,9 @@ Artisan::add(new StopWorkingtimeCommand());
  * @throws Exception
  */
 function handleTimeArgument($option, $time) {
-    $wrongFormat = '[ERROR] Wrong time format... Please use decimal format for duration in hours or time in format [H]H[MM].';
+    $wrongFormat = sprintf(
+        '[ERROR] Wrong time format "%s" Please use decimal format for duration in hours or time in format [H]H[MM].',
+        $time);
 
     $now = getNowDateTime();
     if ($option === 'rounded') $now = getRoundedTimestamp($now);
@@ -50,7 +52,7 @@ function handleTimeArgument($option, $time) {
             $now = $now->sub(new DateInterval(sprintf("PT%dM", $duration * 60)));
         }
     }
-    return $now->format('H') . $now->format('i');;
+    return $now->format('Hi');
 }
 
 /**
@@ -91,6 +93,6 @@ function getNowDateTime() {
  */
 function handleDateArgument($dateString) {
     $date = $dateString === null ? getNowDateTime() : DateTime::createFromFormat('Y-m-d', $dateString);
-    if (!$date) throw new Exception('[ERROR] Wrong date format... Please use 1970-01-01 as example.');
+    if (!$date) throw new Exception(sprintf('[ERROR] Wrong date format "%s". Please use format YYYY-MM-DD.', $dateString));
     return $date;
 }
