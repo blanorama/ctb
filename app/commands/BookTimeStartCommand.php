@@ -29,7 +29,7 @@ class BookTimeStartCommand extends BaseCommand {
 	{
 		return [
             ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
-			['start', InputArgument::OPTIONAL, 'Started working at HHMM'],
+			['start', InputArgument::OPTIONAL, 'duration in decimal hours if < 7 or time in [H]H[MM]'],
 			['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to book time for'],
 		];
 	}
@@ -41,7 +41,7 @@ class BookTimeStartCommand extends BaseCommand {
 	protected function doBookTime($phprojekt)
 	{
 		try {
-            $start = handleTimeArgument($option = $this->argument('option'), $this->argument('start'));
+            $start = handleTimeArgument($this->argument('option'), $this->argument('start'));
             $date = handleDateArgument($this->argument('date'));
 
 			$this->info(sprintf('[ACTION] Book working start at %s on %s', $start, getInfoDate($date)));

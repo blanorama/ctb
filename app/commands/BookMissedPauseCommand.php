@@ -30,7 +30,7 @@ class BookMissedPauseCommand extends BaseCommand {
 	{
 		return [
             ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
-			['end', InputArgument::REQUIRED, 'Ended working at HHMM'],
+			['end', InputArgument::REQUIRED, 'duration in decimal hours if < 7 or time in [H]H[MM]'],
 		];
 	}
 
@@ -41,24 +41,16 @@ class BookMissedPauseCommand extends BaseCommand {
 	protected function doBookTime($phprojekt)
 	{
 		try {
-            $option = $this->argument('option');
-            $end = handleTimeArgument($option, $this->argument('end'));
+            $end = handleTimeArgument($this->argument('option'), $this->argument('end'));
 
             $info = '[ACTION] Follow up missed pause start at '.$end;
             $date = getNowDateTime();
             $infoDate = getInfoDate($date);
 			$phprojekt->getTimecardApi()->logEndWorkingTime($date, $end);
 
-            if ($option === 'rounded') {
-                $start = getRoundedTimestamp(getNowDateTime());
-                $this->info(sprintf('%s, start working at %s on %s', $info, $start, $infoDate));
-                $phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
-            } else if ($option === 'precise') {
-                $this->info(sprintf('%s, start working now on %s', $info, $infoDate));
-                $phprojekt->getTimecardApi()->workStart();
-            } else {
-                $this->error(sprintf('[ERROR] Unknown option "%s"; possible values: "rounded", "precise"', $option));
-            }
+            $start = handleTimeArgument($this->argument('option'), null);
+            $this->info(sprintf('%s, start working at %s on %s', $info, $start, $infoDate));
+            $phprojekt->getTimecardApi()->logStartWorkingTime($date, $start);
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);
