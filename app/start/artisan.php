@@ -34,8 +34,8 @@ function handleTimeArgument($option, $time) {
 
     if ($time !== null) {
         $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($time);
-        if (!$duration) throw new Exception($wrongFormat);
-        if (!strstr($time, ",") && $duration >= 7) {
+        if ($duration != 0 && !$duration) throw new Exception($wrongFormat);
+        if (!strstr($time, ",") && ($duration >= 7 || $duration == 0)) {
             switch (strlen($time)) {
                 case 1:
                     return '0' . $time . '00';
