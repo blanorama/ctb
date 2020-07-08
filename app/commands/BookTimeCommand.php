@@ -28,7 +28,6 @@ class BookTimeCommand extends BaseCommand {
 	protected function getArguments()
 	{
 		return [
-            ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
             ['start', InputArgument::REQUIRED, 'duration in decimal hours if < 7 or time in [H]H[MM]'],
 			['end', InputArgument::REQUIRED, 'duration in decimal hours if < 7 or time in [H]H[MM]'],
 			['date', InputArgument::OPTIONAL, 'Date YYYY-MM-DD to book time for'],
@@ -42,12 +41,12 @@ class BookTimeCommand extends BaseCommand {
 	protected function doBookTime($phprojekt)
 	{
 		try {
-            $start = handleTimeArgument($this->argument('option'), $this->argument('start'));
-            $end = handleTimeArgument($this->argument('option'), $this->argument('end'));
+		    $times = handleTimeArguments($this->argument('start'), $this->argument('end'));
             $date = handleDateArgument($this->argument('date'));
 
-            $this->info(sprintf('[ACTION] Book working time %s - %s on %s', $start, $end, getInfoDate($date)));
-			$phprojekt->getTimecardApi()->logWorkingHours($date, $start, $end);
+            $this->info(sprintf('[ACTION] Book working time %s - %s on %s',
+                $times[0], $times[1], getInfoDate($date)));
+			$phprojekt->getTimecardApi()->logWorkingHours($date, $times[0], $times[1]);
             ListTimeCommand::renderWorklogTable($phprojekt, $date);
         } catch(InvalidArgumentException $e) {
 			$this->error('[ERROR] Something failed here: '.$e);
