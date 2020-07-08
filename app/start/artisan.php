@@ -59,7 +59,7 @@ function handleTimeArgument($option, $time) {
  * @param DateTime $time
  * @return DateTime
  */
-function getRoundedTimestamp($time) {
+function getRoundedTimestamp($time): DateTime {
     $interval = 15;
     $minutes = intval($time->format('i'));
     $seconds = intval($time->format('s'));
@@ -74,7 +74,7 @@ function getRoundedTimestamp($time) {
  * @param DateTime $date
  * @return string
  */
-function getInfoDate($date) {
+function getInfoDate($date): string {
     return strftime('%a, %x', $date->getTimestamp());
 }
 
@@ -82,7 +82,7 @@ function getInfoDate($date) {
  * @return DateTime
  * @throws Exception
  */
-function getNowDateTime() {
+function getNowDateTime(): DateTime {
     return new DateTime();
 }
 
