@@ -16,43 +16,87 @@ Artisan::add(new ProjectsCommand());
 Artisan::add(new StartWorkingtimeCommand());
 Artisan::add(new StopWorkingtimeCommand());
 
+define("TIME_FORMAT", "Hi");
+
 /**
  * @param string $option
  * @param string $time
  * @return string
  * @throws Exception
  */
-function handleTimeArgument($option, $time) {
-    $wrongFormat = sprintf(
-        '[ERROR] Wrong time format "%s" Please use decimal format for duration in hours or time in format [H]H[MM].',
-        $time);
-
+function handleTimeArgument($option, $time): string {
     $now = getNowDateTime();
+
     if ($option === 'rounded') $now = getRoundedTimestamp($now);
     elseif ($option !== 'precise') throw new Exception(sprintf(
         '[ERROR] Unknown option in first arg "%s"; possible values: "rounded", "precise"', $option));
 
     if ($time !== null) {
-        $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($time);
-        if ($duration != 0 && !$duration) throw new Exception($wrongFormat);
-        if (!strstr($time, ",") && ($duration >= 7 || $duration == 0)) {
-            switch (strlen($time)) {
-                case 1:
-                    return '0' . $time . '00';
-                case 2:
-                    return $time . '00';
-                case 3:
-                    return '0' . $time;
-                case 4:
-                    return $time;
-                default:
-                    throw new Exception($wrongFormat);
-            }
-        } else {
-            $now = $now->sub(new DateInterval(sprintf("PT%dM", $duration * 60)));
-        }
+        $duration = checkDuration($time);
+        if ($duration != null) $now = $now->sub($duration);
+        else return makeUpTimeString($time);
     }
-    return $now->format('Hi');
+
+    return $now->format(TIME_FORMAT);
+}
+
+/**
+ * @param string $string
+ * @return DateInterval|null
+ * @throws WrongFormatException
+ */
+function checkDuration($string) {
+    $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($string);
+    if ($duration != 0 && !$duration) throw new WrongFormatException($string);
+    if (strstr($string, ",") || ($duration < 7 && $duration != 0))
+        return new DateInterval(sprintf("PT%dM", $duration * 60));
+    else
+        return null;
+}
+
+/**
+ * @param string $time
+ * @return string
+ * @throws WrongFormatException
+ */
+function makeUpTimeString(string $time): string
+{
+    switch (strlen($time)) {
+        case 1:
+            return '0' . $time . '00';
+        case 2:
+            return $time . '00';
+        case 3:
+            return '0' . $time;
+        case 4:
+            return $time;
+        default:
+            throw new WrongFormatException($time);
+    }
+}
+
+/**
+ * @param string $firstString
+ * @param string $secondString
+ * @return array
+ * @throws WrongFormatException
+ */
+function handleTimeArguments($firstString, $secondString): array {
+    $firstDuration = checkDuration($firstString);
+    $secondDuration = checkDuration($secondString);
+
+    if ($firstDuration === null && $secondDuration === null)
+        return [makeUpTimeString($firstString), makeUpTimeString($secondString)];
+    elseif ($firstDuration === null) {
+        $first = DateTime::createFromFormat(TIME_FORMAT, makeUpTimeString($firstString));
+        return [$first->format(TIME_FORMAT), $first->add($secondDuration)->format(TIME_FORMAT)];
+    } elseif ($secondDuration === null) {
+        $second = DateTime::createFromFormat(TIME_FORMAT, makeUpTimeString($secondString));
+        $secondString = $second->format(TIME_FORMAT);
+        return [$second->sub($firstDuration)->format(TIME_FORMAT), $secondString];
+    } else
+        throw new Exception(sprintf('[ERROR] Cannot handle two durations "%s" & "%s".',
+            $firstString, $secondString));
 }
 
 /**
