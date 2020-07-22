@@ -16,7 +16,7 @@ Artisan::add(new ProjectsCommand());
 Artisan::add(new StartWorkingtimeCommand());
 Artisan::add(new StopWorkingtimeCommand());
 
-define("TIME_FORMAT", "Hi");
+define("TIME_FORMAT_INPUT", "Hi");
 
 /**
  * @param string $option
@@ -37,7 +37,7 @@ function handleTimeArgument($option, $time): string {
         else return makeUpTimeString($time);
     }
 
-    return $now->format(TIME_FORMAT);
+    return $now->format(TIME_FORMAT_INPUT);
 }
 
 /**
@@ -88,12 +88,12 @@ function handleTimeArguments($firstString, $secondString): array {
     if ($firstDuration === null && $secondDuration === null)
         return [makeUpTimeString($firstString), makeUpTimeString($secondString)];
     elseif ($firstDuration === null) {
-        $first = DateTime::createFromFormat(TIME_FORMAT, makeUpTimeString($firstString));
-        return [$first->format(TIME_FORMAT), $first->add($secondDuration)->format(TIME_FORMAT)];
+        $first = DateTime::createFromFormat(TIME_FORMAT_INPUT, makeUpTimeString($firstString));
+        return [$first->format(TIME_FORMAT_INPUT), $first->add($secondDuration)->format(TIME_FORMAT_INPUT)];
     } elseif ($secondDuration === null) {
-        $second = DateTime::createFromFormat(TIME_FORMAT, makeUpTimeString($secondString));
-        $secondString = $second->format(TIME_FORMAT);
-        return [$second->sub($firstDuration)->format(TIME_FORMAT), $secondString];
+        $second = DateTime::createFromFormat(TIME_FORMAT_INPUT, makeUpTimeString($secondString));
+        $secondString = $second->format(TIME_FORMAT_INPUT);
+        return [$second->sub($firstDuration)->format(TIME_FORMAT_INPUT), $secondString];
     } else
         throw new Exception(sprintf('[ERROR] Cannot handle two durations "%s" & "%s".',
             $firstString, $secondString));

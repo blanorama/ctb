@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use PhprojektRemoteApi\PhprojektRemoteApi as Phprojekt;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
+define("TIME_FORMAT_OUTPUT", "H:i");
+
 class ListTimeCommand extends BaseCommand {
 
 	protected $name = 'time:list';
@@ -73,13 +75,13 @@ class ListTimeCommand extends BaseCommand {
                 $diff  = $end->diff($start);
 
                 $table->addRow([
-                    $start->format('H:i'),
-                    $end->format('H:i'),
+                    $start->format(TIME_FORMAT_OUTPUT),
+                    $end->format(TIME_FORMAT_OUTPUT),
                     Convert::text2hours($diff->format('%h : %i'))
                 ]);
             } else {
                 $table->addRow([
-                    $start->format('H:i')
+                    $start->format(TIME_FORMAT_OUTPUT)
                 ]);
             }
 
