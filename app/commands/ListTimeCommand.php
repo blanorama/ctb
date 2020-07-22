@@ -64,7 +64,7 @@ class ListTimeCommand extends BaseCommand {
         $workLog = $timeCardApi->getWorkingHours($date);
         $rows = $workLog->getLog();
         usort($rows, function ($first, $second) {
-            return $second->getStart()->diff($first->getStart())->i;
+            return $first->getStart()->diff($second->getStart())->invert;
         });
 
         $table = new Table(new ConsoleOutput());
@@ -76,7 +76,7 @@ class ListTimeCommand extends BaseCommand {
             $end   = $row->getEnd();
 
             if ($end !== null) {
-                $diff  = $end->diff($start);
+                $diff  = $start->diff($end);
 
                 $table->addRow([
                     $start->format(TIME_FORMAT_OUTPUT),
