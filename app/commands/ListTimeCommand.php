@@ -62,11 +62,15 @@ class ListTimeCommand extends BaseCommand {
     static function renderWorklogTable($phprojekt, $date) {
         $timeCardApi = $phprojekt->getTimecardApi();
         $workLog = $timeCardApi->getWorkingHours($date);
+        $rows = $workLog->getLog();
+        usort($rows, function ($first, $second) {
+            return $second->getStart()->diff($first->getStart())->i;
+        });
 
         $table = new Table(new ConsoleOutput());
         $table->setHeaders(['Start', 'End', 'Sum']);
 
-        foreach ($workLog as $row) {
+        foreach ($rows as $row) {
 
             $start = $row->getStart();
             $end   = $row->getEnd();
