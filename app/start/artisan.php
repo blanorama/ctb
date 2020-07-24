@@ -119,7 +119,7 @@ function getRoundedTimestamp($time): DateTime {
  * @return string
  */
 function getInfoDate($date): string {
-    return strftime('%a, %x', $date->getTimestamp());
+    return strftime('%A, %x', $date->getTimestamp());
 }
 
 /**

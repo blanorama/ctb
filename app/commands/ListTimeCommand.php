@@ -47,7 +47,7 @@ class ListTimeCommand extends BaseCommand {
         try {
             $date = handleDateArgument($this->argument('date'));
 
-            $this->info('[INFO] Listing working time for '.strftime('%a, %x', $date->getTimestamp()));
+            $this->info('[INFO] Listing working time for '. getInfoDate($date));
             $this->renderWorklogTable($phprojekt, $date);
 			exit();
 		} catch(InvalidArgumentException $e) {
