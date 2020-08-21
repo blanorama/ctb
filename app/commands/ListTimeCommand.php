@@ -68,7 +68,7 @@ class ListTimeCommand extends BaseCommand {
         });
 
         $table = new Table(new ConsoleOutput());
-        $table->setHeaders(['Start', 'End', 'Sum']);
+        $table->setHeaders(['Start', 'End', 'Sum', 'Summation']);
 
         foreach ($rows as $row) {
 
@@ -81,7 +81,8 @@ class ListTimeCommand extends BaseCommand {
                 $table->addRow([
                     $start->format(TIME_FORMAT_OUTPUT),
                     $end->format(TIME_FORMAT_OUTPUT),
-                    Convert::text2hours($diff->format('%h : %i'))
+                    Convert::text2hours($diff->format('%h : %i')),
+                    $diff->format('%h h %i m')
                 ]);
             } else {
                 $table->addRow([
@@ -96,6 +97,7 @@ class ListTimeCommand extends BaseCommand {
         $table->addRow([
             '',
             'Overall',
+            $workLog->getOverallTime(),
             $workLog->getOverallTimeString()
         ]);
 
