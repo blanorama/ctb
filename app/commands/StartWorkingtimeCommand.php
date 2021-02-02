@@ -29,7 +29,6 @@ class StartWorkingtimeCommand extends BaseCommand {
     {
         return [
             ['option', InputArgument::REQUIRED, 'arbitrary option strings for special handling in logic'],
-            ['duration', InputArgument::OPTIONAL, 'duration in decimal hours'],
         ];
     }
 
