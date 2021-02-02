@@ -48,7 +48,7 @@ function handleTimeArgument($option, $time): string {
 function checkDuration($string) {
     $duration = (new NumberFormatter("de-De", NumberFormatter::DECIMAL))->parse($string);
     if ($duration != 0 && !$duration) throw new WrongFormatException($string);
-    if (strstr($string, ",") || ($duration < 7 && $duration != 0))
+    if (strstr($string, ",") || ($duration < 8 && $duration != 0))
         return new DateInterval(sprintf("PT%dM", $duration * 60));
     else
         return null;
